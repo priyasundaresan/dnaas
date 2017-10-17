@@ -1,0 +1,108 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600');
+@import url('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
+
+*, *:before, *:after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100vh;
+}
+
+body {
+  font: 600 12px/1 'Open Sans', sans-serif;
+  color: #333;
+  background: #333;
+  overflow-x: hidden;
+}
+
+.wrapper {
+  display: flex;
+  min-height: 100%;
+}
+
+.sidebar {
+  flex: 0 0 220px;
+}
+
+.content {
+  flex: 1 1 200px;
+  padding: 30px;
+  background: #eee;
+  box-shadow: 0 0 5px rgba(0,0,0,1);
+  transition: transform .3s;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+}
+
+.button {
+  cursor: pointer;
+}
+
+.button:before {
+  content: '\f0c9';
+  font: 42px fontawesome;
+}
+
+/* Demo Navigation */
+
+.title {
+  font-size: 16px;
+  line-height: 50px;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 7px;
+  color: #eee;
+  border-bottom: 1px solid #222;
+  background: white;
+}
+
+.title img {
+    height: 100%;
+    width: 100%;
+}
+
+.nav li a {
+  position: relative;
+  display: block;
+  padding: 20px 0 20px 50px;
+  font-size: 12px;
+  color: #eee;
+  border-bottom: 1px solid #222;
+}
+
+.nav li a:before {
+  font: 14px fontawesome;
+  position: absolute;
+  top: 19px;
+  left: 20px;
+}
+
+.nav li:nth-child(1) a:before { content: '\f015'; }
+.nav li:nth-child(2) a:before { content: '\f05a'; }
+
+
+.nav li a:hover {
+  background: #444;
+}
+
+.nav li a.active {
+  box-shadow: inset 5px 0 0 #5b5, inset 6px 0 0 #222;
+  background  : #444;
+}
+
+h1 {
+  margin: 10px 0 5px;
+  font-size: 28px;
+  font-weight: 400;
+}
+
+h2 {
+  font-size: 18px;
+  font-weight: 400;
+  color: #999;
+}

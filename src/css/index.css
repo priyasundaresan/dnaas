@@ -1,0 +1,148 @@
+.progress {
+	border-radius: 4px;
+	background: #FFF;
+    border: 1px solid #AAA;
+    margin-bottom: 0;
+}
+
+.progress-container {
+    flex: 1 1 30%;
+    flex-direction: column;
+    text-align: center;
+}
+
+#progress-bar {
+    width: 0px;
+    transition: 0.2s;
+    height: 100%;
+}
+
+.controls {
+    flex: 0 0 auto;
+    display: flex;
+    flex-flow: column;
+}
+
+#sidebar {
+    display: flex;
+    flex: 0 0 auto;
+    flex-flow: wrap row;
+    margin-bottom: 5px;
+}
+
+#sidebar input {
+    margin: 2px;
+}
+
+/* Grasp slider */
+.slider-display-field {
+    border: 0;
+    background-color: rgba(0,0,0,0);
+}
+ #metric-limits {
+    width: 50px;
+ }
+
+ .metric-slider {
+    flex: 1 1 auto;
+    text-align: center;
+}
+
+ .metric-slider #rendered-count {
+     text-align: center;
+ }
+
+ #slider-range {
+    background: linear-gradient(to right, rgba(255,0,0,1) 0%, rgba(255,255,0,1) 50%, rgba(0,255,0,1) 100%);
+ }
+ 
+ #slider-range .ui-slider-handle:first-of-type {
+  background: red;
+ }
+ #slider-range .ui-slider-handle:last-of-type {
+  background: green;
+ }
+
+ #slider-range .ui-slider-range {
+     background: bottom;
+ }
+
+.about {
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+}
+
+.info {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.alert {
+    align-self: center;
+}
+
+.upload-confirm-container {
+    text-align: center;
+    margin: 20px;
+}
+
+a {
+    cursor: pointer;
+}
+
+#canvas-container {
+    flex: 1 1 auto;
+}
+
+#canvas {
+    cursor: pointer;
+}
+
+.subtitle {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.subtitle h2 {
+    flex: 1 1 auto;
+}
+
+#stable-poses {
+    flex: 0 1 100px;
+    margin-left: 5px;
+}
+
+#stable-pose-selector {
+    display: flex;
+}
+
+.stable-pose-button-container {
+    margin-left: 10px;
+}
+
+.boxes {
+    display: flex;
+    align-items: flex-end;
+    flex: 2 1 auto;
+    justify-content: flex-end;
+}
+
+.buttons {
+    align-items: center;
+    display: flex;
+    justify-content: space-around;
+    flex: 1 1 auto;
+}
+
+.mesh-select-container {
+    flex: 0 1 auto;
+}
+
+.stable-pose-id {
+    flex: 1 1 auto;
+    background: #fff;
+    text-align: center;
+    width: 50px;
+}

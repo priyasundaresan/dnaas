@@ -1,0 +1,50 @@
+.bottom {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.bottom .btn-bottom {
+  flex: 3 1 auto;
+  margin: 10px;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+.bottom .btn {
+  width: 75%;
+}
+.gripper-container {
+  flex: 1 1 auto;
+  margin-right: 50px;
+}
+
+.gripper-container .gripper-param {
+  max-width: 75px;
+}
+
+.gripper-container .gripper-param-input input {
+  max-width: 75px;
+}
+
+.gripper {
+  padding: 0;
+  text-align: center;
+  flex: 1 1 auto;
+}
+
+.gripper-param {
+  padding: 0px 10px 0px 10px;
+  flex: 1 1 auto;
+}
+
+#gripper-width {
+  width: 50px;
+}
+.gripper-param-input {
+  box-sizing: border-box;
+  flex-grow: 1;
+  overflow: hidden;
+  list-style: none;
+  background: fade(slategrey, 20%);
+}
