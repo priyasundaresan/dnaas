@@ -27,7 +27,7 @@ CORS(app)
 class disk_dictlike(object):
     """ Implements dict-like interface for dumping/reading objects from disk (incomplete)
     Only accepts string keys
-    
+
     Is thread-safe but not process-safe
     """
     def __init__(self, path):
@@ -77,7 +77,7 @@ if True: #os.environ.get("WERKZEUG_RUN_MAIN") == "true":
     # Non-persistent because we server restarts should wipe this.
     job_queue = []
     job_args = {}
-    
+
     # Persistent storage dicts
     progress =          disk_dictlike(os.path.join(consts.CACHE_DIR, 'persistent_progress'))
     errors =            disk_dictlike(os.path.join(consts.CACHE_DIR, 'persistent_errors'))
@@ -85,9 +85,9 @@ if True: #os.environ.get("WERKZEUG_RUN_MAIN") == "true":
     filtered_grasps =   disk_dictlike(os.path.join(consts.CACHE_DIR, 'filtered_grasps'))
     stbp_trans =        disk_dictlike(os.path.join(consts.CACHE_DIR, 'stbp_trans'))
     stbp_grasp =        disk_dictlike(os.path.join(consts.CACHE_DIR, 'stbp_grasps'))
-    
+
     time_logging =      disk_dictlike(os.path.join(consts.CACHE_DIR, 'persistent_logging'))  # TODO: Replace this with better logging
-    
+
     # Wipe progress (anything that's not done is error because the server got restarted)
     for key in progress.keys():
         try:
@@ -95,7 +95,7 @@ if True: #os.environ.get("WERKZEUG_RUN_MAIN") == "true":
                 progress[key] = 'error'
         except Exception:
             progress[key] = 'error'
-    
+
     # For convenient acess of persistent storage dicts
     storage_dicts = {'progress': progress,
                      'errors' : errors,
@@ -104,15 +104,15 @@ if True: #os.environ.get("WERKZEUG_RUN_MAIN") == "true":
                      'stbp_trans' : stbp_trans,
                      'stbp_grasp' : stbp_grasp,
                      'time_logging' : time_logging}
-    
-    # Initialize workers with their own copies of 
+
+    # Initialize workers with their own copies of
     workers = []
     jobs_done_by = {}
     for i in range(0, consts.NUM_WORKERS):
         jobs_done_by[str(i)] = []
         worker = dexnet_worker.DexNetWorker(i)
         workers.append(worker)
-    
+
     # Process manager function (copies data to persistent dict-likes, sends jobs to workers)
     def process_manager_fn():
         while True:
@@ -172,12 +172,12 @@ def after_request(response):
     #     logging_dict['request finished'] = time.time()
     #     logging_dict['request recieved'] = g.request_start_time
     #     time_logging[g.obj_id] = logging_dict
-        
+
     # Get elapsed time in milliseconds
     # elapsed = time.time() - g.request_start_time
     # elapsed = int(round(1000 * elapsed))
-    
-    
+
+
 
     # Collect request/response tags
     # tags = [
@@ -195,7 +195,7 @@ def after_request(response):
 
     # Return the original unmodified response
     return response
-    
+
 @app.route('/upload-mesh', methods=['POST'])
 def upload_mesh():
     file = request.files['file']
@@ -206,12 +206,12 @@ def upload_mesh():
     else:
         gripper_args = '{}'
     gripper_args = json.loads(gripper_args)
-    
+
     obj_id = str(uuid.uuid4())
-    
+
     time_logging[obj_id] = {} # TODO: Replace this with better logging
     g.obj_id = obj_id
-    
+
     file.save(os.path.join(consts.MESH_CACHE_DIR, obj_id + '.obj'))
     job_args[obj_id] = ('upload_mesh', (gripper_args))
     job_queue.append(obj_id)
@@ -254,7 +254,7 @@ def get_rescaled_mesh(mesh_id):
     if not os.path.isfile(mesh_filename):
         return 'mesh with given id ({}) not found\n'.format(mesh_id), 404
     return send_file(mesh_filename, attachment_filename=mesh_id + '.obj', as_attachment=True)
-    
+
 @app.route('/<mesh_id>/grasps', methods=['GET'])
 def get_grasps(mesh_id):
     mesh_id = mesh_id.encode('ascii', 'replace')
@@ -270,7 +270,7 @@ def get_stable_pose_count(mesh_id):
     if mesh_id not in stbp_trans.keys():
         return 'mesh with given id ({}) not found\n'.format(mesh_id), 404
     return jsonify(stbp_trans[mesh_id])
-    
+
 @app.route('/<mesh_id>/stable-poses/<pose_id>/transform', methods=['GET'])
 def get_stable_pose_transforms(mesh_id, pose_id):
     mesh_id = mesh_id.encode('ascii', 'replace')
@@ -281,7 +281,7 @@ def get_stable_pose_transforms(mesh_id, pose_id):
     if pose_id not in transforms.keys():
         return 'pose {} not found for mesh {}\n'.format(pose_id, mesh_id), 404
     return jsonify(transforms[pose_id])
-    
+
 @app.route('/<mesh_id>/stable-poses/<pose_id>/filtered-grasps', methods=['GET'])
 def get_filtered_grasps(mesh_id, pose_id):
     mesh_id = mesh_id.encode('ascii', 'replace')
@@ -292,7 +292,7 @@ def get_filtered_grasps(mesh_id, pose_id):
     if pose_id not in grasps_filt.keys():
         return 'pose {} not found for mesh {}\n'.format(pose_id, mesh_id), 404
     return jsonify(grasps_filt[pose_id])
-    
+
 @app.route('/gripper-mesh', methods=['POST'])
 def get_gripper_mesh():
     if 'gripper' in request.files:
@@ -302,11 +302,11 @@ def get_gripper_mesh():
     else:
         gripper_params = '{}'
     gripper_params = json.loads(gripper_params)
-    
+
     for key in consts.GRIPPER_PARAM_DEFAULTS:
         if key not in gripper_params:
             gripper_params[key] = consts.GRIPPER_PARAM_DEFAULTS[key]
-            
+
     gripper = ParametrizedParallelJawGripper.load('generic', gripper_dir='/var/www/html/dexnet-api/dexnet/dex-net/data/grippers')
     gripper.update(gripper_params['fingertip_x'],
                     gripper_params['fingertip_y'],
@@ -334,4 +334,3 @@ if consts.DEBUG:
 # =================================================================================================
 # END
 # =================================================================================================
-    

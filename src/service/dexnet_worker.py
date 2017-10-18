@@ -12,30 +12,30 @@ class _DexNetWorker(multiprocessing.Process):
     def __init__(self, process_name, gripper_dir):
         # Call super initializer
         super(_DexNetWorker, self).__init__()
-        
+
         # Queues for interprocess management
         self._res_q    = multiprocessing.Queue()  # Result queue, for writing to dict-likes in main process
         self._req_q    = multiprocessing.Queue(1) # Request queue, getting requests from main process
         self._busy     = multiprocessing.Queue(1) # Busy flag, blocks requests
         self._call_ret = multiprocessing.Queue(1) # Return queue for function calls
-        
+
         # Set attrs
         self._gripper_dir      = gripper_dir
         # Set name
         self.name = str(process_name)
-        
+
         # Copy gripper to prevent collisions
         gripper_dir_this = os.path.join(gripper_dir, 'generic_{}'.format(self.name))
         gripper_dir_generic = os.path.join(gripper_dir, 'generic')
         shutil.rmtree(gripper_dir_this, ignore_errors=True)
         shutil.copytree(gripper_dir_generic, gripper_dir_this)
-    
+
     def run(self):
         import dexnet_processor
         dexnet_processor.PROCESS_NAME = self.name
         # Setup persistent vars
         self._granular_progress = 0
-        
+
         # Setup logging
         import logging
         logging.basicConfig(filename=os.path.join(consts.CACHE_DIR, 'logging_{}.log'.format(self.name)),
@@ -43,7 +43,7 @@ class _DexNetWorker(multiprocessing.Process):
                             format='%(asctime)s %(name)-12s %(levelname)-8s %(message)s',
                             datefmt='%m-%d %H:%M:%S',
                             filemode='a')
-        
+
         try:
             while True:
                 try:
@@ -51,7 +51,7 @@ class _DexNetWorker(multiprocessing.Process):
                     logging.debug("Request recieved")
                 except Queue.Empty:
                     req = None
-                    
+
                 if req is None:
                     pass
                 elif req[0] == "TERM":
@@ -87,18 +87,18 @@ class _DexNetWorker(multiprocessing.Process):
                     executor_thread.start()
                 else:
                     self.ret('errors', 'thread_'.format(self.name), "Invalid request {}".format(req[0]))
-                    
+
                 if os.getppid() == 1:
                     logging.info("Parent process died, exiting")
                     logging.info("")
                     return
         except Exception:
             self.ret('errors', 'thread_'.format(self.name), traceback.format_exc())
-            
+
     @property
     def busy(self):
         return self._busy.full()
-    
+
     @busy.setter
     def busy(self, value):
         if value:
@@ -107,7 +107,7 @@ class _DexNetWorker(multiprocessing.Process):
         else:
             if self.busy:
                 self._busy.get()
-                
+
     def ret(self, destination, mesh_id, result):
         self._res_q.put((destination,
                             (mesh_id,
@@ -118,7 +118,7 @@ class _DexNetWorker(multiprocessing.Process):
                             (mesh_id,
                             args)
                         ), block=True)
-                        
+
     def preprocess_mesh_internal(self, mesh_id, gripper_params):
         import dexnet_processor
         def progress_reporter_big(message):
@@ -130,46 +130,46 @@ class _DexNetWorker(multiprocessing.Process):
         self.ret('stbp_trans', mesh_id, stbp_trans)
         self.ret('stbp_grasp', mesh_id, stbp_grasp)
         self.ret('progress', mesh_id, 'done')
-    
+
 class DexNetWorker(object):
     """ Dex-net worker class
     """
     def __init__(self, process_name, gripper_dir=consts.GRIPPER_DIR):
         self.process_name     = str(process_name)
         self.gripper_dir      = gripper_dir
-        
+
         self._worker = _DexNetWorker(self.process_name, self.gripper_dir)
         self._worker.daemon = True
         self._worker.start()
-    
+
     @property
     def busy(self):
         return self._worker.busy
-    
+
     @property
     def alive(self):
         return self._worker.is_alive()
-    
+
     def restart(self):
         self._worker.req("TERM", None, None)
         self._worker.join(10)
         self._worker = _DexNetWorker(self.process_name, self.gripper_dir)
         self._worker.daemon = True
         self._worker.start()
-    
+
     @property
     def progress(self):
         self._worker.req('PROGRESS', None)
         return self._worker._call_ret.get(block=True)
-        
+
     def preprocess_mesh(self, mesh_id, gripper_params):
         self._worker.busy = True
         self._worker.req("PROCESS", mesh_id, gripper_params)
-    
+
     @property
     def has_ret(self):
         return not self._worker._res_q.empty()
-    
+
     @property
     def ret(self):
         return self._worker._res_q.get(block=False)

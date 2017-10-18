@@ -58,7 +58,7 @@ GRIPPER_PARAM_DEFAULTS = {'fingertip_x' : 0.01,
                             'palm_depth' : 0.2,
                             'width' : 0.05,
                             'gripper_offset' : 0.01}
-    
+
 # Set up grasp approach offsets
 PHI_OFFSETS = []
 if MAX_GRASP_APPROACH_OFFSET == MIN_GRASP_APPROACH_OFFSET:
@@ -71,4 +71,3 @@ phi = MIN_GRASP_APPROACH_OFFSET
 while phi <= MAX_GRASP_APPROACH_OFFSET:
     PHI_OFFSETS.append(phi)
     phi += phi_inc
-    
