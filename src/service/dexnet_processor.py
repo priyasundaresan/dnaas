@@ -157,8 +157,7 @@ def preprocess_mesh(mesh_id, gripper_params, progress_reporter_big=lambda x: Non
     gripper.update(gripper_params['fingertip_x'],
                     gripper_params['fingertip_y'],
                     gripper_params['palm_depth'],
-                    gripper_params['width'],
-                    gripper_params['gripper_offset'])
+                    gripper_params['width'])
 
     progress_reporter_big('sampling grasps')
 
