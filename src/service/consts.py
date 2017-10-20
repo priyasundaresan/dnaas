@@ -22,13 +22,17 @@ GRIPPER_DIR = os.path.join(DNAAS_SERVICE_ROOT, 'grippers')
 
 from collections import Mapping
 def _deep_update_config(config, updates):
-        """ Deep updates a config dict """
-        for key, value in updates.iteritems():
-            if isinstance(value, Mapping):
-                config[key] = _deep_update_config(config.get(key, {}), value)
-            else:
-                config[key] = value
-        return config
+    """ Deep updates a config dict """
+    for key, value in updates.iteritems():
+        if isinstance(value, Mapping):
+            try:
+                base = config[key]
+            except KeyError:
+                base = {}
+            config[key] = _deep_update_config(base, value)
+        else:
+            config[key] = value
+    return config
 CONFIG = _deep_update_config(YamlConfig(GLOBAL_DEFAULTS_FILE), YamlConfig(SERVICE_DEFAULTS_FILE))
 CONFIG['cache_dir'] = MESH_CACHE_DIR
 
