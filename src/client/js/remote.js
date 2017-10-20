@@ -37,7 +37,9 @@ REMOTE.followProgress = function(success, fail) {
         if (data['state'] === 'in queue'){
             var position = data['position']
             REMOTE.set_pbar(2.5 + 17.5 / Math.sqrt(position + 2), "Waiting in queue (position " + position + ")")
-        } else if (data['state'] === 'computing SDF') {
+        }
+        $('.progress-estimated-wait').show();
+        if (data['state'] === 'computing SDF') {
             REMOTE.set_pbar(20, "Computing signed distance field")
         } else if (data['state'] === 'sampling grasps') {
             REMOTE.set_pbar(30, "Sampling grasps")
