@@ -52,7 +52,6 @@ REMOTE.followProgress = function(success, fail) {
         }
         if (data['state'] === 'done') {
             REMOTE.set_pbar(100, "Done!")
-            $('.progress-estimated-wait').hide();
             GLOBAL.render = false;
             Promise.all([MESH.addModelUrl(url_base), AXES.loadGraspAxes(url_base + "/grasps")])
                 .then(() => {

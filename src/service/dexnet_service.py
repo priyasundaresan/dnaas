@@ -177,8 +177,6 @@ def after_request(response):
     # elapsed = time.time() - g.request_start_time
     # elapsed = int(round(1000 * elapsed))
 
-
-
     # Collect request/response tags
     # tags = [
     #     'mesh_id:{mesh_id}'.format(mesh_id=request.args['mesh_id']),
