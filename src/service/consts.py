@@ -2,10 +2,11 @@ import numpy as np
 import os
 from autolab_core import YamlConfig
 
-DEXNET_API_ROOT = '/var/www/html/dexnet-api'
-DEXNET_ROOT     = os.path.join(DEXNET_API_ROOT, 'dexnet/dex-net')
-CACHE_DIR       = os.path.join(DEXNET_API_ROOT, 'webcache')
-MESH_CACHE_DIR  = os.path.join(CACHE_DIR, 'mp_cache')
+DEXNET_API_ROOT    = '/var/www/html/dexnet-api'
+DEXNET_ROOT        = os.path.join(DEXNET_API_ROOT, 'dexnet/dex-net')
+DNAAS_SERVICE_ROOT = os.path.join(DEXNET_API_ROOT, 'dnaas/src/service')
+CACHE_DIR          = os.path.join(DEXNET_API_ROOT, 'webcache')
+MESH_CACHE_DIR     = os.path.join(CACHE_DIR, 'mp_cache')
 
 # DEXNET_API_ROOT = '/mnt/c/Users/alanp/Documents/CollegeNonclass/AUTOLAB/dnaas_refactor'
 # DEXNET_ROOT     = os.path.join(DEXNET_API_ROOT, 'dex-net')
@@ -15,9 +16,9 @@ MESH_CACHE_DIR  = os.path.join(CACHE_DIR, 'mp_cache')
 DEBUG = True
 NUM_WORKERS = 2
 
-SERVICE_DEFAULTS_FILE = os.path.join(DEXNET_ROOT, 'cfg/apps/dexnet_service_defaults.yaml')
+SERVICE_DEFAULTS_FILE = os.path.join(DNAAS_SERVICE_ROOT, 'defaults.yaml')
 GLOBAL_DEFAULTS_FILE  = os.path.join(DEXNET_ROOT, 'cfg/api_defaults.yaml')
-GRIPPER_DIR = os.path.join(DEXNET_ROOT, 'data/grippers')
+GRIPPER_DIR = os.path.join(DNAAS_SERVICE_ROOT, 'grippers')
 
 from collections import Mapping
 def _deep_update_config(config, updates):
