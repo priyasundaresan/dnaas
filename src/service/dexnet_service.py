@@ -307,12 +307,12 @@ def get_gripper_mesh():
         if key not in gripper_params:
             gripper_params[key] = consts.GRIPPER_PARAM_DEFAULTS[key]
 
-    gripper = ParametrizedParallelJawGripper.load('generic', gripper_dir='/var/www/html/dexnet-api/dexnet/dex-net/data/grippers')
+    gripper = ParametrizedParallelJawGripper.load('generic', gripper_dir=consts.GRIPPER_DIR)
     gripper.update(gripper_params['fingertip_x'],
                     gripper_params['fingertip_y'],
                     gripper_params['palm_depth'],
                     gripper_params['width'])
-    return send_file('/var/www/html/dexnet-api/dexnet/dex-net/data/grippers/generic/gripper.obj', attachment_filename='gripper.obj', as_attachment=True)
+    return send_file(os.path.join(consts.GRIPPER_DIR, 'generic/gripper.obj'), attachment_filename='gripper.obj', as_attachment=True)
 
 @app.route('/<mesh_id>/error', methods=['GET'])
 def get_error(mesh_id):
