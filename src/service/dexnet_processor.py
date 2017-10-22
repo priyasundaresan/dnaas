@@ -3,6 +3,7 @@ import numpy as np
 import logging
 
 import meshpy
+from meshpy import ObjFile
 from autolab_core import RigidTransform
 
 import dexnet.database.mesh_processor as mp
@@ -42,7 +43,10 @@ def load_mesh(mesh_id):
                                   model_name    = mesh_processor.obj_filename,
                                   mass          = consts.CONFIG['default_mass'],
                                   convex_pieces = None)
-
+                                  
+    # resave mesh to the proc file because the new CoM thing translates the mesh
+    ObjFile(os.path.join(consts.MESH_CACHE_DIR, mesh_id) + '_proc.obj').write(graspable.mesh)
+    
     return graspable, stable_poses
 
 def sample_grasps(graspable, gripper, config):
