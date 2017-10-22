@@ -8,6 +8,7 @@ import traceback
 import warnings
 import json
 import shutil
+import logging
 
 from flask import Flask, request, jsonify, send_file, g
 from flask_cors import CORS, cross_origin
@@ -156,6 +157,15 @@ if True: #os.environ.get("WERKZEUG_RUN_MAIN") == "true":
 # =================================================================================================
 # Flask endpoints
 # =================================================================================================
+@app.before_first_request
+def setup_logging():
+    log_file = "%s/dnaas.log".format(consts.CACHE_DIR, time.time())
+    handler = logging.FileHandler(log_file)
+    handler.setLevel(logging.INFO)
+    formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
+    handler.setFormatter(formatter)
+    app.logger.addHandler(handler)
+
 @app.before_request
 def before_request():
     g.request_start_time = time.time()
@@ -166,30 +176,22 @@ def after_request(response):
     if not hasattr(g, 'request_start_time'):
         return response
 
-    # Record request time, response time in logging dict TODO: Replace this with better logging
-    # if 'upload-mesh' in request.path.split('/'):
-    #     logging_dict = time_logging[g.obj_id]
-    #     logging_dict['request finished'] = time.time()
-    #     logging_dict['request recieved'] = g.request_start_time
-    #     time_logging[g.obj_id] = logging_dict
-
     # Get elapsed time in milliseconds
-    # elapsed = time.time() - g.request_start_time
-    # elapsed = int(round(1000 * elapsed))
+    elapsed = time.time() - g.request_start_time
+    elapsed = int(round(1000 * elapsed))
 
     # Collect request/response tags
-    # tags = [
-    #     'mesh_id:{mesh_id}'.format(mesh_id=request.args['mesh_id']),
-    #     'endpoint:{endpoint}'.format(endpoint=request.endpoint),
-    #     'request_method:{method}'.format(method=request.method.lower()),
-    #     'status_code:{status_code}'.format(status_code=response.status_code),
-    # ]
-
-    # if 'progress' in request.rule:
-    #   tags.append('progress:{progress}'.format(progress=response['state']))
+    info = {
+        'tags:{request_tags}'.format(request_tags=g.request_tags),
+        'mesh_id:{mesh_id}'.format(mesh_id=request.args['mesh_id']),
+        'endpoint:{endpoint}'.format(endpoint=request.endpoint),
+        'request_method:{method}'.format(method=request.method.lower()),
+        'status_code:{status_code}'.format(status_code=response.status_code),
+        'ms_elapsed_time:{time}'.format(elapsed)
+    }
 
     # Record our response time metric
-    # warnings.warn('flask.response.time', elapsed, tags=g.request_tags + tags) # Note: this doesn't actually work, just throws an error
+    app.logger.info(info)
 
     # Return the original unmodified response
     return response
