@@ -106,12 +106,16 @@ function init() {
                 $("#metric-limits").val( ui.values[ 0 ] + " – " + ui.values[ 1 ] );
             }
         });
-        /* Grasp slider setup */
+        AXES.slider = $( "#slider-range" );
+        /* Grasp slider display fields */
+        $( "#metric-limits" ).val( $( "#slider-range" ).slider( "values", 0 ) + " – " + $( "#slider-range" ).slider( "values", 1 ) );
+        
+        /* Gripper slider setup */
         $("#gripper-width-slider").slider({
             range: false,
             min: 1,
             max: 10,
-            value:  7,
+            value:  parseInt(GRIPPER.params.width * 100),
             step: 0.5,
             slide: function(event, ui) {
                 $("#gripper-width").val(ui.value + " cm");
@@ -122,10 +126,8 @@ function init() {
                 GRIPPER.update();
             }
         });
-        AXES.slider = $( "#slider-range" );
-        /* Grasp slider display fields */
-        $( "#metric-limits" ).val( $( "#slider-range" ).slider( "values", 0 ) + " – " + $( "#slider-range" ).slider( "values", 1 ) );
         $("#gripper-width").val(parseInt(GRIPPER.params.width * 100) + " cm");
+        
         /* Stable pose toggle button */
         $( "#stable-pose-button" ).change(function() {
             if (this.checked) {
