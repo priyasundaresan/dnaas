@@ -72,6 +72,8 @@ REMOTE.followProgress = function(success, fail) {
                 });
         } else if (data['state'] === 'error') {
             MODE.enter_upload_mode();
+            REMOTE.set_pbar(0, "Working...", 0)
+            $('.progress-estimated-wait').hide();
             $.ajax({
                 url : url_base + "/error",
                 success : function(result){
