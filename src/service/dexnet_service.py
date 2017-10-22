@@ -161,6 +161,7 @@ if True: #os.environ.get("WERKZEUG_RUN_MAIN") == "true":
 def setup_logging():
     log_file = "{0}/dnaas.log".format(consts.CACHE_DIR)
     handler = logging.FileHandler(log_file)
+    app.logger.setLevel(logging.INFO)
     handler.setLevel(logging.INFO)
     formatter = formatter = logging.Formatter(
         "[%(asctime)s] {%(pathname)s:%(lineno)d} %(levelname)s - %(message)s")
@@ -170,6 +171,7 @@ def setup_logging():
 @app.before_request
 def before_request():
     g.request_start_time = time.time()
+    g.mesh_id = "None"
 
 @app.after_request
 def after_request(response):
@@ -183,12 +185,11 @@ def after_request(response):
 
     # Collect request/response tags
     info = {
-        'tags:{request_tags}'.format(request_tags=g.request_tags),
-        'mesh_id:{mesh_id}'.format(mesh_id=request.args['mesh_id']),
+        'mesh_id:{mesh_id}'.format(mesh_id=g.mesh_id),
         'endpoint:{endpoint}'.format(endpoint=request.endpoint),
         'request_method:{method}'.format(method=request.method.lower()),
         'status_code:{status_code}'.format(status_code=response.status_code),
-        'ms_elapsed_time:{time}'.format(elapsed)
+        'ms_elapsed_time:{time}'.format(time=elapsed)
     }
 
     # Record our response time metric
@@ -210,8 +211,7 @@ def upload_mesh():
 
     obj_id = str(uuid.uuid4())
 
-    time_logging[obj_id] = {} # TODO: Replace this with better logging
-    g.obj_id = obj_id
+    g.mesh_id = obj_id
 
     file.save(os.path.join(consts.MESH_CACHE_DIR, obj_id + '.obj'))
     job_args[obj_id] = ('upload_mesh', (gripper_args))
@@ -221,6 +221,7 @@ def upload_mesh():
 @app.route('/<mesh_id>/processing-progress', methods=['GET'])
 def get_progress(mesh_id):
     mesh_id = mesh_id.encode('ascii', 'replace')
+    g.mesh_id = mesh_id
     if mesh_id not in progress.keys():
         if mesh_id in job_queue:
             return jsonify({'state' : 'in queue', 'position' : job_queue.index(mesh_id)})
@@ -239,6 +240,7 @@ def get_progress(mesh_id):
 @app.route('/<mesh_id>/kill-job', methods=['POST'])
 def kill_job(mesh_id):
     mesh_id = mesh_id.encode('ascii', 'replace')
+    g.mesh_id = mesh_id
     if mesh_id not in job_queue:
         if mesh_id != current_job:
             return 'requested mesh not in queue'.format(mesh_id), 404
@@ -251,6 +253,7 @@ def kill_job(mesh_id):
 @app.route('/<mesh_id>', methods=['GET'])
 def get_rescaled_mesh(mesh_id):
     mesh_id = mesh_id.encode('ascii', 'replace')
+    g.mesh_id = mesh_id
     mesh_filename = os.path.join(consts.MESH_CACHE_DIR, mesh_id + '_proc.obj')
     if not os.path.isfile(mesh_filename):
         return 'mesh with given id ({}) not found\n'.format(mesh_id), 404
@@ -259,6 +262,7 @@ def get_rescaled_mesh(mesh_id):
 @app.route('/<mesh_id>/grasps', methods=['GET'])
 def get_grasps(mesh_id):
     mesh_id = mesh_id.encode('ascii', 'replace')
+    g.mesh_id = mesh_id
     try:
         grasps = filtered_grasps[mesh_id]
     except KeyError:
@@ -268,6 +272,7 @@ def get_grasps(mesh_id):
 @app.route('/<mesh_id>/stable-poses', methods=['GET'])
 def get_stable_pose_count(mesh_id):
     mesh_id = mesh_id.encode('ascii', 'replace')
+    g.mesh_id = mesh_id
     if mesh_id not in stbp_trans.keys():
         return 'mesh with given id ({}) not found\n'.format(mesh_id), 404
     return jsonify(stbp_trans[mesh_id])
@@ -275,6 +280,7 @@ def get_stable_pose_count(mesh_id):
 @app.route('/<mesh_id>/stable-poses/<pose_id>/transform', methods=['GET'])
 def get_stable_pose_transforms(mesh_id, pose_id):
     mesh_id = mesh_id.encode('ascii', 'replace')
+    g.mesh_id = mesh_id
     pose_id = pose_id.encode('ascii', 'replace')
     if mesh_id not in stbp_trans.keys():
         return 'mesh with given id ({}) not found\n'.format(mesh_id), 404
@@ -286,6 +292,7 @@ def get_stable_pose_transforms(mesh_id, pose_id):
 @app.route('/<mesh_id>/stable-poses/<pose_id>/filtered-grasps', methods=['GET'])
 def get_filtered_grasps(mesh_id, pose_id):
     mesh_id = mesh_id.encode('ascii', 'replace')
+    g.mesh_id = mesh_id
     pose_id = pose_id.encode('ascii', 'replace')
     if mesh_id not in stbp_trans.keys():
         return 'mesh with given id ({}) not found\n'.format(mesh_id), 404
@@ -318,6 +325,7 @@ def get_gripper_mesh():
 @app.route('/<mesh_id>/error', methods=['GET'])
 def get_error(mesh_id):
     mesh_id = mesh_id.encode('ascii', 'replace')
+    g.mesh_id = mesh_id
     if mesh_id not in errors_handled.keys():
         return "Not found\n"
     return errors_handled[mesh_id]
@@ -327,6 +335,7 @@ if consts.DEBUG:
     @app.route('/<mesh_id>/error-trace', methods=['GET'])
     def get_trace(mesh_id):
         mesh_id = mesh_id.encode('ascii', 'replace')
+        g.mesh_id = mesh_id
         if mesh_id not in errors.keys():
             return "Not found\n"
         return '<div style="font-family:monospace"> {} </div>'.format(
