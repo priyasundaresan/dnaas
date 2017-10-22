@@ -1,4 +1,6 @@
-var REMOTE = {}
+var REMOTE = {
+    updateDelay : 3
+}
 
 /* Upload current model to server */
 REMOTE.uploadMesh = function() {
@@ -36,7 +38,7 @@ REMOTE.followProgress = function(success, fail) {
     $.getJSON(url, function(data) {
         if (data['state'] === 'in queue'){
             var position = data['position']
-            REMOTE.set_pbar(2.5 + 17.5 / Math.sqrt(position + 2), "Waiting in queue (position " + position + ")")
+            REMOTE.set_pbar(2.5 + 17.5 / Math.sqrt(position + 2), "Waiting in queue (position " + position + ")", 120)
         }
         $('.progress-estimated-wait').show();
         if (data['state'] === 'preprocessing') {
@@ -51,14 +53,14 @@ REMOTE.followProgress = function(success, fail) {
             REMOTE.set_pbar(60 + 40 * data['percent done'], "Performing perturbation analysis")
         }
         if (data['state'] === 'done') {
-            REMOTE.set_pbar(100, "Done!", true)
+            REMOTE.set_pbar(100, "Done!", 0)
             GLOBAL.render = false;
             Promise.all([MESH.addModelUrl(url_base), AXES.loadGraspAxes(url_base + "/grasps")])
                 .then(() => {
                     STABLE.base_url = url_base
                     GLOBAL.render = true;
                     MODE.enter_grasp_mode();
-                    REMOTE.set_pbar(0, "Working...", true)
+                    REMOTE.set_pbar(0, "Working...", 0)
                 })
                 .catch((e) => {
                     console.error(e);
@@ -75,15 +77,19 @@ REMOTE.followProgress = function(success, fail) {
                 }
             });
         } else {
-            setTimeout(REMOTE.followProgress, 3000); // recursively call function again
+            setTimeout(REMOTE.followProgress, REMOTE.updateDelay * 1000); // recursively call function again
         }
     })
 }
 
-REMOTE.set_pbar = function(percent, text="Working...", jump=false){
+REMOTE.set_pbar = function(percent, text="Working...", wait){
+    if (wait == undefined){
+        wait = REMOTE.updateDelay * 2
+    }
+    
     $("#progress-bar").css({
         "width": percent.toString() + "%",
-        "transition-duration": jump ? "0s" : "6s",
+        "transition-duration": wait + "s",
         "transition-timing-function": "ease-out",
     });
     $("#progress-text").html(text);
