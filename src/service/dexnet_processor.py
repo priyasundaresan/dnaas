@@ -154,7 +154,7 @@ def compute_metrics(graspable, grasps, gripper, metric_spec, progress_reporter=l
 
 
 def preprocess_mesh(mesh_id, gripper_params, progress_reporter_big=lambda x: None, progress_reporter_small=lambda x: None):
-    progress_reporter_big('computing SDF')
+    progress_reporter_big('preprocessing')
     # Update gripper params with defaults
     for key in consts.GRIPPER_PARAM_DEFAULTS:
         if key not in gripper_params:
