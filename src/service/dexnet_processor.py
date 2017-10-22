@@ -65,14 +65,17 @@ def sample_grasps(graspable, gripper, config):
     grasps = sampler.generate_grasps(graspable, max_iter=config['max_grasp_sampling_iters'])
     return grasps
 
-def filter_grasps_generic(graspable, grasps, gripper):
+def filter_grasps_generic(graspable, grasps, gripper, progress_reporter=lambda x: None):
+    progress_reporter(0)
+
     collision_checker = GraspCollisionChecker(gripper)
     collision_checker.set_graspable_object(graspable)
 
     collision_free_grasps = []
     colliding_grasps = []
 
-    for grasp in grasps:
+    for k, grasp in enumerate(grasps):
+        progress_reporter(float(k) / len(grasps))
         collision_free = False
         for rot_idx in range(0, consts.GENERAL_COLLISION_CHECKING_NUM_OFFSETS):
             rotated_grasp = grasp.grasp_y_axis_offset(rot_idx * consts.GENERAL_COLLISION_CHECKING_PHI)
@@ -87,13 +90,15 @@ def filter_grasps_generic(graspable, grasps, gripper):
             colliding_grasps.append(grasp)
     return collision_free_grasps, colliding_grasps
 
-def filter_grasps_stbp(graspable, grasps, gripper, stable_poses):
+def filter_grasps_stbp(graspable, grasps, gripper, stable_poses, progress_reporter=lambda x: None):
+    progress_reporter(0)
+    
     collision_checker = GraspCollisionChecker(gripper)
     collision_checker.set_graspable_object(graspable)
 
     stbp_grasps_indices = []
     stbp_grasps_aligned = []
-    for stable_pose in stable_poses:
+    for k, stable_pose in enumerate(stable_poses):
         # set up collision checker with table
         T_obj_stp = RigidTransform(rotation=stable_pose.r, from_frame='obj', to_frame='stp')
         T_obj_table = graspable.mesh.get_T_surface_obj(T_obj_stp,
@@ -105,6 +110,7 @@ def filter_grasps_stbp(graspable, grasps, gripper, stable_poses):
         this_stbp_grasps_indices = []
         this_stbp_grasps_aligned = []
         for idx, aligned_grasp in enumerate(aligned_grasps):
+            progress_reporter(float(idx) / (len(grasps) * len(stable_poses)) + float(k) / len(stable_poses))
             _, grasp_approach_table_angle, _ = aligned_grasp.grasp_angles_from_stp_z(stable_pose)
             perpendicular_table = (np.abs(grasp_approach_table_angle) < consts.MAX_GRASP_APPROACH_TABLE_ANGLE)
             if not perpendicular_table:
@@ -141,7 +147,7 @@ def compute_metrics(graspable, grasps, gripper, metric_spec, progress_reporter=l
 
     # compute quality for each grasp
     for k, grasp in enumerate(grasps):
-        progress_reporter((k + 1.0) / len(grasps))
+        progress_reporter(float(k) / len(grasps))
         q = quality_fn(grasp)
         grasp_metrics.append(q.quality)
     return grasp_metrics
@@ -168,10 +174,10 @@ def preprocess_mesh(mesh_id, gripper_params, progress_reporter_big=lambda x: Non
     grasps = sample_grasps(graspable, gripper, consts.CONFIG)
 
     progress_reporter_big('collision checking')
-    collision_free_grasps, colliding_grasps = filter_grasps_generic(graspable, grasps, gripper)
+    collision_free_grasps, colliding_grasps = filter_grasps_generic(graspable, grasps, gripper, progress_reporter=progress_reporter_small)
 
     progress_reporter_big('collision checking for stable poses')
-    stbp_grasps_indices, stbp_grasps_aligned = filter_grasps_stbp(graspable, collision_free_grasps, gripper, stable_poses)
+    stbp_grasps_indices, stbp_grasps_aligned = filter_grasps_stbp(graspable, collision_free_grasps, gripper, stable_poses, progress_reporter=progress_reporter_small)
 
     progress_reporter_big('computing metrics')
     metric_spec = consts.CONFIG['metrics'][consts.METRIC_USED]

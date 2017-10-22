@@ -225,7 +225,7 @@ def get_progress(mesh_id):
             return 'mesh with given id ({}) not found\n'.format(mesh_id), 404
     state = progress[mesh_id]
     ret_dict = {'state' : state}
-    if state == 'computing metrics':
+    if state in ['computing metrics', 'collision checking', 'collision checking for stable poses']:
         ret_dict['percent done'] = 0
         for worker in workers:
             if mesh_id in jobs_done_by[worker.process_name]:

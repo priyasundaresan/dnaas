@@ -42,11 +42,11 @@ REMOTE.followProgress = function(success, fail) {
         if (data['state'] === 'computing SDF') {
             REMOTE.set_pbar(20, "Computing signed distance field")
         } else if (data['state'] === 'sampling grasps') {
-            REMOTE.set_pbar(30, "Sampling grasps")
+            REMOTE.set_pbar(25, "Sampling grasps")
         } else if (data['state'] === 'collision checking') {
-            REMOTE.set_pbar(40, "Computing grasp reachability")
+            REMOTE.set_pbar(35 + 10 * data['percent done'], "Computing grasp reachability")
         } else if (data['state'] === 'collision checking for stable poses') {
-            REMOTE.set_pbar(50, "Filtering grasps by stable pose")
+            REMOTE.set_pbar(45 + 15 * data['percent done'], "Filtering grasps by stable pose")
         } else if (data['state'] === 'computing metrics') {
             REMOTE.set_pbar(60 + 40 * data['percent done'], "Performing perturbation analysis")
         }
