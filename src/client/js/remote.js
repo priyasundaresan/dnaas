@@ -39,8 +39,10 @@ REMOTE.followProgress = function(success, fail) {
         if (data['state'] === 'in queue'){
             var position = data['position']
             REMOTE.set_pbar(2.5 + 17.5 / Math.sqrt(position + 2), "Waiting in queue (position " + position + ")", 120)
+        } else {
+            $('.progress-estimated-wait').show();
         }
-        $('.progress-estimated-wait').show();
+        
         if (data['state'] === 'preprocessing') {
             REMOTE.set_pbar(20, "Preprocessing mesh")
         } else if (data['state'] === 'sampling grasps') {
@@ -52,6 +54,7 @@ REMOTE.followProgress = function(success, fail) {
         } else if (data['state'] === 'computing metrics') {
             REMOTE.set_pbar(60 + 40 * data['percent done'], "Performing perturbation analysis")
         }
+        
         if (data['state'] === 'done') {
             REMOTE.set_pbar(100, "Done!", 0)
             GLOBAL.render = false;
@@ -61,6 +64,7 @@ REMOTE.followProgress = function(success, fail) {
                     GLOBAL.render = true;
                     MODE.enter_grasp_mode();
                     REMOTE.set_pbar(0, "Working...", 0)
+                    $('.progress-estimated-wait').hide();
                 })
                 .catch((e) => {
                     console.error(e);
