@@ -159,7 +159,7 @@ if True: #os.environ.get("WERKZEUG_RUN_MAIN") == "true":
 # =================================================================================================
 @app.before_first_request
 def setup_logging():
-    log_file = "%s/dnaas.log".format(consts.CACHE_DIR, time.time())
+    log_file = "{0}/dnaas.log".format(consts.CACHE_DIR)
     handler = logging.FileHandler(log_file)
     handler.setLevel(logging.INFO)
     formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
