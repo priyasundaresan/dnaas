@@ -58,6 +58,7 @@ REMOTE.followProgress = function(success, fail) {
                     STABLE.base_url = url_base
                     GLOBAL.render = true;
                     MODE.enter_grasp_mode();
+                    REMOTE.set_pbar(0, "Working...", true)
                 })
                 .catch((e) => {
                     console.error(e);
