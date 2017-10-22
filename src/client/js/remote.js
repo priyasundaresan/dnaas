@@ -51,7 +51,7 @@ REMOTE.followProgress = function(success, fail) {
             REMOTE.set_pbar(60 + 40 * data['percent done'], "Performing perturbation analysis")
         }
         if (data['state'] === 'done') {
-            REMOTE.set_pbar(100, "Done!")
+            REMOTE.set_pbar(100, "Done!", true)
             GLOBAL.render = false;
             Promise.all([MESH.addModelUrl(url_base), AXES.loadGraspAxes(url_base + "/grasps")])
                 .then(() => {
@@ -79,9 +79,11 @@ REMOTE.followProgress = function(success, fail) {
     })
 }
 
-REMOTE.set_pbar = function(percent, text="Working..."){
+REMOTE.set_pbar = function(percent, text="Working...", jump=false){
     $("#progress-bar").css({
-        width: percent.toString() + "%",
+        "width": percent.toString() + "%",
+        "transition-duration": jump ? "0s" : "6s",
+        "transition-timing-function": "ease-out",
     });
     $("#progress-text").html(text);
 }
