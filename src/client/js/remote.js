@@ -90,13 +90,13 @@ REMOTE.followProgress = function(success, fail) {
 
 REMOTE.set_pbar = function(percent, text="Working...", wait){
     if (wait == undefined){
-        wait = REMOTE.updateDelay * 2
+        wait = REMOTE.updateDelay * 5
     }
     
     $("#progress-bar").css({
         "width": percent.toString() + "%",
         "transition-duration": wait + "s",
-        "transition-timing-function": "ease-out",
+        "transition-timing-function": "cubic-bezier(0.3, 1, .17, .87)",
     });
     $("#progress-text").html(text);
 }
