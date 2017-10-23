@@ -24,11 +24,11 @@ body {
 }
 
 .sidebar {
-  flex: 0 0 220px;
+  flex: 1 1 220px;
 }
 
 .content {
-  flex: 1 1 200px;
+  flex: 1 1;
   padding: 30px;
   background: #eee;
   box-shadow: 0 0 5px rgba(0,0,0,1);
@@ -66,13 +66,18 @@ body {
     width: 100%;
 }
 
+
 .nav li a {
-  position: relative;
   display: block;
+  position: relaitve;
   padding: 20px 0 20px 50px;
   font-size: 12px;
   color: #eee;
   border-bottom: 1px solid #222;
+}
+
+.nav li a:focus {
+  background-color: #333;
 }
 
 .nav li a:before {
@@ -85,7 +90,6 @@ body {
 .nav li:nth-child(1) a:before { content: '\f015'; }
 .nav li:nth-child(2) a:before { content: '\f05a'; }
 .nav li:nth-child(3) a:before { content: '\f086'; }
-
 
 .nav li a:hover {
   background: #444;
