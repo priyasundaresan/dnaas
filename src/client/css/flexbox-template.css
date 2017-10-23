@@ -24,11 +24,11 @@ body {
 }
 
 .sidebar {
-  flex: 1 1 220px;
+  flex: 0 0 220px;
 }
 
 .content {
-  flex: 1 1;
+  flex: 1 1 200px;
   padding: 30px;
   background: #eee;
   box-shadow: 0 0 5px rgba(0,0,0,1);
@@ -65,7 +65,6 @@ body {
     height: 100%;
     width: 100%;
 }
-
 
 .nav li a {
   display: block;
