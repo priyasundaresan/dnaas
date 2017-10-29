@@ -227,13 +227,13 @@ def after_request(response):
     elapsed = int(round(1000 * elapsed))
 
     # Collect request/response tags
-    info = {
-        'mesh_id:{mesh_id}'.format(mesh_id=g.mesh_id),
-        'endpoint:{endpoint}'.format(endpoint=request.endpoint),
-        'request_method:{method}'.format(method=request.method.lower()),
-        'status_code:{status_code}'.format(status_code=response.status_code),
-        'ms_elapsed_time:{time}'.format(time=elapsed)
-    }
+    info = (
+        'mesh_id:{mesh_id}, '        .format(mesh_id=g.mesh_id) + 
+        'endpoint:{endpoint}, '      .format(endpoint=request.endpoint) + 
+        'request_method:{method}, '  .format(method=request.method.lower()) + 
+        'status_code:{status_code}, '.format(status_code=response.status_code) + 
+        'ms_elapsed_time:{time}, '   .format(time=elapsed)
+    )
 
     # Record our response time metric
     app.logger.info(info)
