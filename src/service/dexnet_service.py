@@ -71,13 +71,36 @@ class disk_dictlike(object):
 # =================================================================================================
 
 # =================================================================================================
+# keeping track of requests/timeouts
+# =================================================================================================
+class Request(object):
+    def __init__(self, mesh_id, args, timeout=consts.JOB_TIMEOUT):
+        self.id = mesh_id
+        self.args = args
+        self.worker = None
+        self.timeout = timeout
+        self.last_touch = time.time()
+        
+    def touch(self):
+        self.last_touch = time.time()
+        
+    @property
+    def stale(self):
+        return time.time() - self.last_touch > self.timeout
+# =================================================================================================
+# END
+# =================================================================================================
+
+# =================================================================================================
 # Main method (initializaiton) of server
 # =================================================================================================
 if True: #os.environ.get("WERKZEUG_RUN_MAIN") == "true":
     # Job queue and input arg storage
     # Non-persistent because we server restarts should wipe this.
     job_queue = []
-    job_args = {}
+    job_objs = {}
+    
+    job_inprogress = []
 
     # Persistent storage dicts
     progress =          disk_dictlike(os.path.join(consts.CACHE_DIR, 'persistent_progress'))
@@ -108,9 +131,7 @@ if True: #os.environ.get("WERKZEUG_RUN_MAIN") == "true":
 
     # Initialize workers with their own copies of
     workers = []
-    jobs_done_by = {}
     for i in range(0, consts.NUM_WORKERS):
-        jobs_done_by[str(i)] = []
         worker = dexnet_worker.DexNetWorker(i)
         workers.append(worker)
 
@@ -130,20 +151,23 @@ if True: #os.environ.get("WERKZEUG_RUN_MAIN") == "true":
                         time_logging_dict = time_logging[mesh_id] # TODO: Replace this with better logging
                         time_logging_dict[data[0]] = data[1]
                         time_logging[mesh_id] = time_logging_dict
+                if not worker.busy:
+                    for name in job_inprogress:
+                        if job_objs[name].worker == worker:
+                            job_inprogress.remove(name)
+                            del job_objs[name]
             if len(job_queue) != 0:
                 try:
                     name = job_queue[0]
                     for worker in workers:
                         if not worker.busy:
-                            args = job_args[name]
-                            if args[0] == 'upload_mesh':
-                                progress[name] = 'computing SDF'
-                                jobs_done_by[worker.process_name].append(name)
-                                job_queue.pop(0)
-                                worker.preprocess_mesh(name, gripper_params=args[1])
-                                break
-                            else:
-                                errors['general'] = "Got function {} that doesn't exist".format(args[0])
+                            job = job_objs[name]
+                            progress[name] = 'computing SDF'
+                            job.worker = worker
+                            job_queue.pop(0)
+                            job_inprogress.append(name)
+                            worker.preprocess_mesh(name, gripper_params=job.args)
+                            break
                 except Exception as e:
                     errors['general'] = traceback.format_exc()
     # Start process manager
@@ -214,7 +238,9 @@ def upload_mesh():
     g.mesh_id = obj_id
 
     file.save(os.path.join(consts.MESH_CACHE_DIR, obj_id + '.obj'))
-    job_args[obj_id] = ('upload_mesh', (gripper_args))
+    
+    job = Request(obj_id, gripper_args)
+    job_objs[obj_id] = job
     job_queue.append(obj_id)
     return jsonify({'id' : obj_id, 'position' : len(job_queue)})
 
@@ -230,25 +256,9 @@ def get_progress(mesh_id):
     state = progress[mesh_id]
     ret_dict = {'state' : state}
     if state in ['computing metrics', 'collision checking', 'collision checking for stable poses']:
-        ret_dict['percent done'] = 0
-        for worker in workers:
-            if mesh_id in jobs_done_by[worker.process_name]:
-                ret_dict['percent done'] = worker.progress
-                break
+        worker = job_objs[mesh_id].worker
+        ret_dict['percent done'] = worker.progress
     return jsonify(ret_dict)
-
-@app.route('/<mesh_id>/kill-job', methods=['POST'])
-def kill_job(mesh_id):
-    mesh_id = mesh_id.encode('ascii', 'replace')
-    g.mesh_id = mesh_id
-    if mesh_id not in job_queue:
-        if mesh_id != current_job:
-            return 'requested mesh not in queue'.format(mesh_id), 404
-        else:
-            return 'mesh {} has begun computation and cannot be killed'.format(mesh_id), 412
-    else:
-        job_queue.remove(mesh_id)
-        return 'mesh {} removed from queue'.format(mesh_id)
 
 @app.route('/<mesh_id>', methods=['GET'])
 def get_rescaled_mesh(mesh_id):

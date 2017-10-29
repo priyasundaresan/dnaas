@@ -15,6 +15,7 @@ MESH_CACHE_DIR     = os.path.join(CACHE_DIR, 'mp_cache')
 
 DEBUG = True
 NUM_WORKERS = 2
+JOB_TIMEOUT = 12
 
 SERVICE_DEFAULTS_FILE = os.path.join(DNAAS_SERVICE_ROOT, 'defaults.yaml')
 GLOBAL_DEFAULTS_FILE  = os.path.join(DEXNET_ROOT, 'cfg/api_defaults.yaml')
