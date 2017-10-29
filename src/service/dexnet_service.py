@@ -82,7 +82,8 @@ class Request(object):
         self.last_touch = time.time()
         
     def touch(self):
-        self.last_touch = time.time()
+        if time.time() - self.last_touch <= self.timeout:
+            self.last_touch = time.time()
         
     @property
     def stale(self):
@@ -151,11 +152,29 @@ if True: #os.environ.get("WERKZEUG_RUN_MAIN") == "true":
                         time_logging_dict = time_logging[mesh_id] # TODO: Replace this with better logging
                         time_logging_dict[data[0]] = data[1]
                         time_logging[mesh_id] = time_logging_dict
-                if not worker.busy:
-                    for name in job_inprogress:
-                        if job_objs[name].worker == worker:
-                            job_inprogress.remove(name)
-                            del job_objs[name]
+
+            for name in job_inprogress:
+                job = job_objs[name]
+                worker = job.worker
+                if job.stale:
+                    if worker is not None:
+                        worker.restart()
+                    errors_handled[name] = 'Killed'
+                    progress[name] = 'error'
+                    if name in job_inprogress: job_inprogress.remove(name)
+                    if name in job_objs.keys(): del job_objs[name]
+                elif progress[name] == 'done':
+                    if name in job_inprogress: job_inprogress.remove(name)
+                    if name in job_objs.keys(): del job_objs[name]
+                    
+            for name in job_queue:
+                job = job_objs[name]
+                if job.stale:
+                    errors_handled[name] = 'Killed'
+                    progress[name] = 'error'
+                    if name in job_queue: job_queue.remove(name)
+                    if name in job_objs.keys(): del job_objs[name]
+                            
             if len(job_queue) != 0:
                 try:
                     name = job_queue[0]
@@ -248,6 +267,8 @@ def upload_mesh():
 def get_progress(mesh_id):
     mesh_id = mesh_id.encode('ascii', 'replace')
     g.mesh_id = mesh_id
+    if mesh_id in job_objs.keys():
+        job_objs[mesh_id].touch()
     if mesh_id not in progress.keys():
         if mesh_id in job_queue:
             return jsonify({'state' : 'in queue', 'position' : job_queue.index(mesh_id)})

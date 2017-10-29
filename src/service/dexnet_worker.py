@@ -152,7 +152,7 @@ class DexNetWorker(object):
 
     def restart(self):
         self._worker.req("TERM", None, None)
-        self._worker.join(10)
+        self._worker.join(1)
         self._worker = _DexNetWorker(self.process_name, self.gripper_dir)
         self._worker.daemon = True
         self._worker.start()
