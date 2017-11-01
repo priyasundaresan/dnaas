@@ -5,6 +5,7 @@ import os
 import glob
 import time
 import sys
+import shutil
 
 
 BASE_URL = 'http://automation.berkeley.edu/dex-net-api/'
@@ -14,7 +15,7 @@ if __name__ == "__main__":
     for filepath in glob.glob('mini_dexnet/*.obj'):
         name, _ = os.path.splitext(os.path.basename(filepath))
         
-        files = {'file' : open(filepath, 'rb'), 'gripper' : json.dumps({'width' : 0.07})}
+        files = {'file' : open(filepath, 'rb'), 'gripper' : json.dumps({'width' : 0.05})}
         r = requests.post(BASE_URL + 'upload-mesh', files=files)
         print(name + ' requested')
         print(r.text)
@@ -28,6 +29,15 @@ if __name__ == "__main__":
         for name in names.keys():
             r = requests.get(BASE_URL + names[name] + '/processing-progress')
             if not dones[name] and r.json()['state'] != 'done':
+                if r.json()['state'] == 'error':
+                    print('Retrying {}'.format(name))
+                    files = {'file' : open('mini_dexnet/{}.obj'.format(name), 'rb'), 'gripper' : json.dumps({'width' : 0.05})}
+                    r = requests.post(BASE_URL + 'upload-mesh', files=files)
+                    print(name + ' requested')
+                    print(r.text)
+                    sys.stdout.flush()
+                    names[name] = r.json()['id']
+                    dones[name] = False
                 print(name.ljust(18) + ': ' + str(r.json()))
             else:
                 print(name.ljust(18) + ' done')
@@ -35,6 +45,8 @@ if __name__ == "__main__":
                     print('first time {} is done, writing...'.format(name))
                     
                     base_url_obj = BASE_URL + names[name]
+                    
+                    shutil.rmtree('./' + name, ignore_errors=True)
                     os.mkdir('./' + name)
                     
                     r = requests.get(base_url_obj)
