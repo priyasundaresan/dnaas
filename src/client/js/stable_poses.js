@@ -43,9 +43,7 @@ STABLE.clearGroundPlane = function() {
 
 STABLE.setGroundPlane = function() {
     STABLE.clearGroundPlane();
-    var bBox = new THREE.Box3().setFromObject(GLOBAL.world);
-    var bBoxSize = bBox.getSize();
-    var dim = Math.max(bBoxSize.x, bBoxSize.y) / 2 * 1.2;
+    var dim = GLOBAL.world.extent * 2.1;
     var geom = new THREE.PlaneGeometry(dim, dim);
     
     STABLE.ground_plane = new THREE.Mesh( geom, new THREE.MeshBasicMaterial({color: 0x184da3, side : THREE.DoubleSide}) );

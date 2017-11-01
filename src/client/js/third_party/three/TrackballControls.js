@@ -220,7 +220,12 @@ THREE.TrackballControls = function ( object, domElement ) {
 				_this.object.up.applyQuaternion( quaternion );
 
 			}
-
+            
+            
+            if (GRIPPER.model != undefined){
+                GRIPPER.model.position.copy(GLOBAL.camera.up.normalize().multiplyScalar((GLOBAL.world.extent + GRIPPER.offset) * GLOBAL.world.scale.x))
+                GRIPPER.model.lookAt(_this.target)
+            }
 			_movePrev.copy( _moveCurr );
 
 		};
