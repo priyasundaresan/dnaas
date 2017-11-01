@@ -6,6 +6,8 @@ var REMOTE = {
 REMOTE.uploadMesh = function() {
     $("#stable-pose-button").prop('checked', false).change();
     MODE.enter_pbar_mode();
+    REMOTE.set_pbar(0, "Working...", 0)
+    $('.progress-estimated-wait').hide();
     var reader = new FileReader();
     var xhr = new XMLHttpRequest();
     this.xhr = xhr;
@@ -37,6 +39,7 @@ REMOTE.followProgress = function(success, fail) {
     var url = url_base + "/processing-progress"
     $.getJSON(url, function(data) {
         if (data['state'] === 'in queue'){
+            $('.progress-estimated-wait').hide();
             var position = data['position']
             REMOTE.set_pbar(2.5 + 17.5 / Math.sqrt(position + 2), "Waiting in queue (position " + position + ")", 120)
         } else {
@@ -90,7 +93,7 @@ REMOTE.followProgress = function(success, fail) {
 
 REMOTE.set_pbar = function(percent, text="Working...", wait){
     if (wait == undefined){
-        wait = REMOTE.updateDelay * 5
+        wait = REMOTE.updateDelay * 10
     }
     
     $("#progress-bar").css({
