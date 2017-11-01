@@ -30,6 +30,7 @@ STABLE.showStablePose = function(grasps_url, transform_url) {
         GLOBAL.camera.reset();
         GLOBAL.camera.lockRotation(true);
         GLOBAL.render = true;
+        GRIPPER.update()
         $( "#stable-pose-id" ).val((STABLE.current_pose + 1) + " / " + STABLE.num_poses);
     }).catch(function(...args) {
         console.error(...args);

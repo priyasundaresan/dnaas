@@ -222,7 +222,7 @@ THREE.TrackballControls = function ( object, domElement ) {
 			}
             
             
-            if (GRIPPER.model != undefined){
+            if (GRIPPER.model != undefined && !STABLE.active){
                 GRIPPER.model.position.copy(GLOBAL.camera.up.normalize().multiplyScalar((GLOBAL.world.extent + GRIPPER.offset) * GLOBAL.world.scale.x))
                 GRIPPER.model.lookAt(_this.target)
             }
