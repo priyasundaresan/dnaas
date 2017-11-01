@@ -15,7 +15,7 @@ animate();
 function init() {
     var container = $('#canvas-container');
     /* Camera */
-    GLOBAL.camera = new THREE.PerspectiveCamera(10, container.innerWidth() / container.innerHeight(), 1, 1000);
+    GLOBAL.camera = new THREE.PerspectiveCamera(20, container.innerWidth() / container.innerHeight(), 1, 1000);
     GLOBAL.camera.setViewOffset ( container.innerWidth(),
                                   container.innerHeight(),
                                   0,
@@ -23,13 +23,13 @@ function init() {
                                   container.innerWidth(),
                                   container.innerHeight());
     GLOBAL.camera.position.x = 0;
-    GLOBAL.camera.position.z = 2;
-	GLOBAL.camera.position.y = 2;
+    GLOBAL.camera.position.z = 1;
+	GLOBAL.camera.position.y = 3;
     GLOBAL.camera.up = new THREE.Vector3(0, 0, 1);
     GLOBAL.camera.reset = function(){
         GLOBAL.camera.position.x = 0;
-        GLOBAL.camera.position.z = 2;
-        GLOBAL.camera.position.y = 2;
+        GLOBAL.camera.position.z = 1;
+        GLOBAL.camera.position.y = 3;
         GLOBAL.camera.up = new THREE.Vector3(0, 0, 1);
         controls.forceIdle();
     }
@@ -71,7 +71,7 @@ function init() {
     controls.rotateSpeed = 3.0;
 	controls.dynamicDampingFactor = 0.2;
     controls.enableZoom = true;
-	controls.minDistance = 2;
+	controls.minDistance = 1.5;
 	controls.maxDistance = 10;
 	controls.noPan = true;
 

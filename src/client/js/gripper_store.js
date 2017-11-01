@@ -8,7 +8,8 @@ var GRIPPER = {
     },
     model : undefined,
     material_main : new THREE.MeshLambertMaterial({color : 0x505050}),
-    render_gripper : true
+    render_gripper : true,
+    offset : 0
 };
 GRIPPER.material_main.side = THREE.DoubleSide;
 GRIPPER.update = function() {
@@ -28,17 +29,14 @@ GRIPPER.update = function() {
                                 }
                             });
                             object.name = "gripper"
-                            GRIPPER.purge();                            
-                            GLOBAL.world.position.x = 0
-                            GLOBAL.world.position.y = 0
-                            GLOBAL.world.position.z = 0
-                            GLOBAL.world.scale.set(1, 1, 1)
-                            world_bbox = new THREE.Box3().setFromObject(GLOBAL.world)
-                            deltaz = world_bbox.max.z + GRIPPER.params.palm_depth + GRIPPER.params.gripper_offset
-                            GLOBAL.world.add(object);
-                            GRIPPER.model = object;
-                            object.position.z += deltaz
+                            GRIPPER.purge();
                             object.applyQuaternion(new THREE.Quaternion(1, 0, 0, 0));
+                            gbb = new THREE.Box3().setFromObject(object)
+                            GRIPPER.offset = -gbb.getCenter().z + gbb.getSize().z / 2.0
+                            object.scale.copy(GLOBAL.world.scale)
+                            GLOBAL.scene.add(object);
+                            GRIPPER.model = object;
+                            object.position.copy(GLOBAL.camera.up.normalize().multiplyScalar((GLOBAL.world.extent + GRIPPER.offset) * GLOBAL.world.scale.x))
                         });
                         resolve();
                     }
@@ -60,7 +58,7 @@ GRIPPER.update = function() {
             xhr.send(formData);
         });
     } else {
-        GLOBAL.world.remove(GRIPPER.model)
+        GLOBAL.scene.remove(GRIPPER.model)
         return new Promise((resolve, reject) => {resolve();});
     }
 }
@@ -71,9 +69,9 @@ GRIPPER.set_render = function(render) {
 }
 
 GRIPPER.purge = function() {
-    to_remove = GLOBAL.world.getObjectByName("gripper")
+    to_remove = GLOBAL.scene.getObjectByName("gripper")
     while (to_remove != undefined){
-        GLOBAL.world.remove(to_remove);
-        to_remove = GLOBAL.world.getObjectByName("gripper");
+        GLOBAL.scene.remove(to_remove);
+        to_remove = GLOBAL.scene.getObjectByName("gripper");
     }
 }
