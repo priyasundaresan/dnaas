@@ -3,7 +3,7 @@ var GRIPPER = {
         fingertip_x : 0.01,
         fingertip_y : 0.01,
         palm_depth : 0.05,
-        width : 0.05,
+        width : 0.06,
         gripper_offset : 0.01
     },
     model : undefined,
