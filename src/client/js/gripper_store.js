@@ -32,7 +32,7 @@ GRIPPER.update = function() {
                             GRIPPER.purge();
                             object.applyQuaternion(new THREE.Quaternion(1, 0, 0, 0));
                             gbb = new THREE.Box3().setFromObject(object)
-                            GRIPPER.offset = gbb.getCenter().z + gbb.getSize().z / 2.0
+                            GRIPPER.offset = -gbb.getCenter().z + gbb.getSize().z / 2.0
                             object.scale.copy(GLOBAL.world.scale)
                             GLOBAL.scene.add(object);
                             GRIPPER.model = object;
