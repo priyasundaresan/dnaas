@@ -44,10 +44,15 @@ STABLE.clearGroundPlane = function() {
 
 STABLE.setGroundPlane = function() {
     STABLE.clearGroundPlane();
-    var dim = GLOBAL.world.extent * 2.1;
+    box = new THREE.Box3().setFromObject(GLOBAL.world)
+    bsize = box.getSize()
+    var dim = Math.max(bsize.x, bsize.y) / GLOBAL.world.scale.x * 1.1;
     var geom = new THREE.PlaneGeometry(dim, dim);
     
     STABLE.ground_plane = new THREE.Mesh( geom, new THREE.MeshBasicMaterial({color: 0x184da3, side : THREE.DoubleSide}) );
+    STABLE.ground_plane.position.x = -GLOBAL.world.position.x / GLOBAL.world.scale.x;
+    STABLE.ground_plane.position.y = -GLOBAL.world.position.y / GLOBAL.world.scale.y;
+    STABLE.ground_plane.position.z = -GLOBAL.world.extent * 0.001
     GLOBAL.world.add(STABLE.ground_plane)
 }
 
