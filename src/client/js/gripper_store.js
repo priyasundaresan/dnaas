@@ -38,7 +38,7 @@ GRIPPER.update = function() {
                             GRIPPER.model = object;
                             if (STABLE.active){
                                 world_bbox = new THREE.Box3().setFromObject(GLOBAL.world)
-                                deltaz = world_bbox.max.z + (GRIPPER.offset + 0.01) * GLOBAL.world.scale.x
+                                deltaz = world_bbox.max.z + (GRIPPER.offset + 0.02) * GLOBAL.world.scale.x
                                 object.position.set(0, 0, deltaz)
                             } else{
                                 object.position.copy(GLOBAL.camera.up.normalize().multiplyScalar((GLOBAL.world.extent + GRIPPER.offset) * GLOBAL.world.scale.x))
