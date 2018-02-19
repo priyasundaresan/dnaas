@@ -13,6 +13,7 @@ init();
 animate();
 
 function init() {
+    $.get('http://automation.berkeley.edu/dex-net-api/initialize')
     var container = $('#canvas-container');
     /* Camera */
     GLOBAL.camera = new THREE.PerspectiveCamera(20, container.innerWidth() / container.innerHeight(), 1, 1000);

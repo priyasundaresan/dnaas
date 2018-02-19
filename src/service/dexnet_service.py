@@ -361,6 +361,11 @@ def get_error(mesh_id):
         return "Not found\n"
     return errors_handled[mesh_id]
 
+# Used to force server to spin up flask process. Needed because AUTOLAB server kills processes if inactive
+@app.route('/initialize', methods=['GET'])
+def get_initialize():
+    return 1
+
 # Debug endpoints (potential to expose code, should be turned off in production if serious about security)
 if consts.DEBUG:
     @app.route('/<mesh_id>/error-trace', methods=['GET'])
