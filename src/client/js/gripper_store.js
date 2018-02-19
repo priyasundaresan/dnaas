@@ -51,6 +51,7 @@ GRIPPER.update = function() {
                     };
                     reader.readAsDataURL(mesh_file);
                 } else {
+                    console.log(xhr)
                     reject(Error(xhr));
                 }
             };
@@ -59,7 +60,7 @@ GRIPPER.update = function() {
             };
             var formData = new FormData();
             formData.set("gripper", JSON.stringify(GRIPPER.params));
-            xhr.open('POST', 'http://automation.berkeley.edu/dex-net-api/gripper-mesh', true);
+            xhr.open('GET', 'assets/grippers/gripper_' + (GRIPPER.params.width * 100).toFixed(1).replace('.', '_') + '.obj', true);
             xhr.responseType = 'blob';
             xhr.send(formData);
         });
