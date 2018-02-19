@@ -156,12 +156,13 @@ def preprocess_mesh(mesh_id, params, progress_reporter_big=lambda x: None, progr
     progress_reporter_big('preprocessing')
 
     gripper_params = params['gripper']
-    config_updates = params['config']
 
     config = {}
     consts._deep_update_config(config, consts.CONFIG)
-    consts._deep_update_config(config, config_updates)
-    config['cache_dir'] = consts.CONFIG['cache_dir']
+    if 'config' in params.keys():
+        config_updates = params['config']
+        consts._deep_update_config(config, config_updates)
+        config['cache_dir'] = consts.CONFIG['cache_dir']
 
 
     # Update gripper params with defaults
