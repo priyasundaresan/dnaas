@@ -183,11 +183,11 @@ if True: #os.environ.get("WERKZEUG_RUN_MAIN") == "true":
                     for worker in workers:
                         if not worker.busy:
                             job = job_objs[name]
-                            progress[name] = 'computing SDF'
+                            progress[name] = 'preprocessing'
                             job.worker = worker
                             job_queue.pop(0)
                             job_inprogress.append(name)
-                            worker.preprocess_mesh(name, gripper_params=job.args)
+                            worker.preprocess_mesh(name, params=job.args)
                             break
                 except Exception as e:
                     errors['general'] = traceback.format_exc()
