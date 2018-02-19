@@ -270,6 +270,7 @@ def upload_mesh():
     return jsonify({'id' : obj_id, 'position' : len(job_queue)})
 
 @app.route('/<mesh_id>/args-used', methods=['GET'])
+def get_args_used(mesh_id):
     mesh_id = mesh_id.encode('ascii', 'replace')
     if mesh_id in args_used.keys():
         return args_used[mesh_id]
