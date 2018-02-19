@@ -164,6 +164,10 @@ def preprocess_mesh(mesh_id, params, progress_reporter_big=lambda x: None, progr
         consts._deep_update_config(config, config_updates)
         config['cache_dir'] = consts.CONFIG['cache_dir']
 
+    metric_used = consts.METRIC_USED
+    if 'metric' in params.keys():
+        metric_used = params['metric']
+
 
     # Update gripper params with defaults
     for key in consts.GRIPPER_PARAM_DEFAULTS:
@@ -190,7 +194,7 @@ def preprocess_mesh(mesh_id, params, progress_reporter_big=lambda x: None, progr
     stbp_grasps_indices, stbp_grasps_aligned = filter_grasps_stbp(graspable, collision_free_grasps, gripper, stable_poses, progress_reporter=progress_reporter_small)
 
     progress_reporter_big('computing metrics')
-    metric_spec = config['metrics'][consts.METRIC_USED]
+    metric_spec = config['metrics'][metric_used]
     grasp_metrics = compute_metrics(graspable, collision_free_grasps, gripper, metric_spec, progress_reporter=progress_reporter_small)
 
     # Process transforms into a form usable by the web api and return them
