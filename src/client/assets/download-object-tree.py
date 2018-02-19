@@ -15,7 +15,7 @@ if __name__ == "__main__":
     for filepath in glob.glob('mini_dexnet/*.obj'):
         name, _ = os.path.splitext(os.path.basename(filepath))
         
-        files = {'file' : open(filepath, 'rb'), 'gripper' : json.dumps({'width' : 0.05})}
+        files = {'file' : open(filepath, 'rb'), 'params' : json.dumps({'gripper' : {'width' : 0.06}})}
         r = requests.post(BASE_URL + 'upload-mesh', files=files)
         print(name + ' requested')
         print(r.text)
@@ -31,7 +31,7 @@ if __name__ == "__main__":
             if not dones[name] and r.json()['state'] != 'done':
                 if r.json()['state'] == 'error':
                     print('Retrying {}'.format(name))
-                    files = {'file' : open('mini_dexnet/{}.obj'.format(name), 'rb'), 'gripper' : json.dumps({'width' : 0.06})}
+                    files = {'file' : open('mini_dexnet/{}.obj'.format(name), 'rb'), 'params' : json.dumps({'gripper' : {'width' : 0.06}})}
                     r = requests.post(BASE_URL + 'upload-mesh', files=files)
                     print(name + ' requested')
                     print(r.text)

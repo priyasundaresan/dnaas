@@ -28,7 +28,7 @@ REMOTE.uploadMesh = function() {
     }
     var formData = new FormData();
     formData.set("file", MESH.mesh_main_file);
-    formData.set("gripper", JSON.stringify(GRIPPER.params));
+    formData.set("params", JSON.stringify({"gripper" : GRIPPER.params}));
     xhr.open("POST", "http://automation.berkeley.edu/dex-net-api/upload-mesh");
     xhr.send(formData);
 }

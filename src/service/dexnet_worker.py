@@ -119,13 +119,13 @@ class _DexNetWorker(multiprocessing.Process):
                             args)
                         ), block=True)
 
-    def preprocess_mesh_internal(self, mesh_id, gripper_params):
+    def preprocess_mesh_internal(self, mesh_id, params):
         import dexnet_processor
         def progress_reporter_big(message):
             self.ret('progress', mesh_id, message)
         def progress_reporter_small(percent):
             self._granular_progress = percent
-        grasps, stbp_trans, stbp_grasp = dexnet_processor.preprocess_mesh(mesh_id, gripper_params, progress_reporter_big, progress_reporter_small)
+        grasps, stbp_trans, stbp_grasp = dexnet_processor.preprocess_mesh(mesh_id, params, progress_reporter_big, progress_reporter_small)
         self.ret('filtered_grasps', mesh_id, grasps)
         self.ret('stbp_trans', mesh_id, stbp_trans)
         self.ret('stbp_grasp', mesh_id, stbp_grasp)
@@ -162,9 +162,9 @@ class DexNetWorker(object):
         self._worker.req('PROGRESS', None)
         return self._worker._call_ret.get(block=True)
 
-    def preprocess_mesh(self, mesh_id, gripper_params):
+    def preprocess_mesh(self, mesh_id, params):
         self._worker.busy = True
-        self._worker.req("PROCESS", mesh_id, gripper_params)
+        self._worker.req("PROCESS", mesh_id, params)
 
     @property
     def has_ret(self):

@@ -110,6 +110,7 @@ if True: #os.environ.get("WERKZEUG_RUN_MAIN") == "true":
     filtered_grasps =   disk_dictlike(os.path.join(consts.CACHE_DIR, 'filtered_grasps'))
     stbp_trans =        disk_dictlike(os.path.join(consts.CACHE_DIR, 'stbp_trans'))
     stbp_grasp =        disk_dictlike(os.path.join(consts.CACHE_DIR, 'stbp_grasps'))
+    args_used =         disk_dictlike(os.path.join(consts.CACHE_DIR, 'args_used'))
 
     time_logging =      disk_dictlike(os.path.join(consts.CACHE_DIR, 'persistent_logging'))  # TODO: Replace this with better logging
 
@@ -139,6 +140,7 @@ if True: #os.environ.get("WERKZEUG_RUN_MAIN") == "true":
     # Process manager function (copies data to persistent dict-likes, sends jobs to workers)
     def process_manager_fn():
         while True:
+            t1 = time.time()
             for i, worker in enumerate(workers):
                 if not worker.alive:
                     warnings.warn('Worker {} died, restarting'.format(i)) # TODO: actually restart the worker
@@ -189,6 +191,9 @@ if True: #os.environ.get("WERKZEUG_RUN_MAIN") == "true":
                             break
                 except Exception as e:
                     errors['general'] = traceback.format_exc()
+            t2 = time.time()
+            time.sleep(max(0, 0.1 - (t2 - t1)))
+
     # Start process manager
     process_manager_thread = Thread(target=process_manager_fn)
     process_manager_thread.start()
@@ -245,12 +250,13 @@ def after_request(response):
 def upload_mesh():
     file = request.files['file']
     if 'gripper' in request.files:
-        gripper_args = request.files['gripper'].read()
+        grasp_args = request.files['params'].read()
     elif 'gripper' in request.form:
-        gripper_args = request.form['gripper']
+        grasp_args = request.form['params']
     else:
-        gripper_args = '{}'
-    gripper_args = json.loads(gripper_args)
+        grasp_args = '{}'
+    args_used[obj_id] = grasp_args
+    grasp_args = json.loads(grasp_args)
 
     obj_id = str(uuid.uuid4())
 
@@ -258,10 +264,17 @@ def upload_mesh():
 
     file.save(os.path.join(consts.MESH_CACHE_DIR, obj_id + '.obj'))
     
-    job = Request(obj_id, gripper_args)
+    job = Request(obj_id, grasp_args)
     job_objs[obj_id] = job
     job_queue.append(obj_id)
     return jsonify({'id' : obj_id, 'position' : len(job_queue)})
+
+@app.route('/<mesh_id>/args-used', methods=['GET'])
+    mesh_id = mesh_id.encode('ascii', 'replace')
+    if mesh_id in args_used.keys():
+        return args_used[mesh_id]
+    else:
+        return 'mesh with given id ({}) not found\n'.format(mesh_id), 404
 
 @app.route('/<mesh_id>/processing-progress', methods=['GET'])
 def get_progress(mesh_id):
@@ -364,7 +377,7 @@ def get_error(mesh_id):
 # Used to force server to spin up flask process. Needed because AUTOLAB server kills processes if inactive
 @app.route('/initialize', methods=['GET'])
 def get_initialize():
-    return 1
+    return '1'
 
 # Debug endpoints (potential to expose code, should be turned off in production if serious about security)
 if consts.DEBUG:

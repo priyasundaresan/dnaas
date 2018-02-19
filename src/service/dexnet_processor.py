@@ -26,7 +26,7 @@ def grasps_to_dicts(grasps, metrics):
                             'metric_score' : metric})
     return grasps_list
 
-def load_mesh(mesh_id):
+def load_mesh(mesh_id, config):
     # set up filepath from mesh id (this is where the service dumps the mesh
     filepath = os.path.join(consts.MESH_CACHE_DIR, mesh_id) + '.obj'
 
@@ -34,14 +34,14 @@ def load_mesh(mesh_id):
     mesh_processor = mp.MeshProcessor(filepath, consts.MESH_CACHE_DIR)
 
     # Process mesh
-    mesh, sdf, stable_poses = mesh_processor.generate_graspable(consts.CONFIG)
+    mesh, sdf, stable_poses = mesh_processor.generate_graspable(config)
 
     # Make graspable
     graspable = GraspableObject3D(sdf           = sdf,
                                   mesh          = mesh,
                                   key           = mesh_id,
                                   model_name    = mesh_processor.obj_filename,
-                                  mass          = consts.CONFIG['default_mass'],
+                                  mass          = config['default_mass'],
                                   convex_pieces = None)
                                   
     # resave mesh to the proc file because the new CoM thing translates the mesh
@@ -152,15 +152,24 @@ def compute_metrics(graspable, grasps, gripper, metric_spec, progress_reporter=l
         grasp_metrics.append(q.quality)
     return grasp_metrics
 
-
-def preprocess_mesh(mesh_id, gripper_params, progress_reporter_big=lambda x: None, progress_reporter_small=lambda x: None):
+def preprocess_mesh(mesh_id, params, progress_reporter_big=lambda x: None, progress_reporter_small=lambda x: None):
     progress_reporter_big('preprocessing')
+
+    gripper_params = params['gripper']
+    config_updates = params['config']
+
+    config = {}
+    consts._deep_update_config(config, consts.CONFIG)
+    consts._deep_update_config(config, config_updates)
+    config['cache_dir'] = consts.CONFIG['cache_dir']
+
+
     # Update gripper params with defaults
     for key in consts.GRIPPER_PARAM_DEFAULTS:
         if key not in gripper_params:
             gripper_params[key] = consts.GRIPPER_PARAM_DEFAULTS[key]
 
-    graspable, stable_poses = load_mesh(mesh_id)
+    graspable, stable_poses = load_mesh(mesh_id, config)
 
     # Load gripper
     gripper = ParametrizedParallelJawGripper.load('generic_{}'.format(PROCESS_NAME), gripper_dir=consts.GRIPPER_DIR)
@@ -171,7 +180,7 @@ def preprocess_mesh(mesh_id, gripper_params, progress_reporter_big=lambda x: Non
 
     progress_reporter_big('sampling grasps')
 
-    grasps = sample_grasps(graspable, gripper, consts.CONFIG)
+    grasps = sample_grasps(graspable, gripper, config)
 
     progress_reporter_big('collision checking')
     collision_free_grasps, colliding_grasps = filter_grasps_generic(graspable, grasps, gripper, progress_reporter=progress_reporter_small)
@@ -180,7 +189,7 @@ def preprocess_mesh(mesh_id, gripper_params, progress_reporter_big=lambda x: Non
     stbp_grasps_indices, stbp_grasps_aligned = filter_grasps_stbp(graspable, collision_free_grasps, gripper, stable_poses, progress_reporter=progress_reporter_small)
 
     progress_reporter_big('computing metrics')
-    metric_spec = consts.CONFIG['metrics'][consts.METRIC_USED]
+    metric_spec = config['metrics'][consts.METRIC_USED]
     grasp_metrics = compute_metrics(graspable, collision_free_grasps, gripper, metric_spec, progress_reporter=progress_reporter_small)
 
     # Process transforms into a form usable by the web api and return them
