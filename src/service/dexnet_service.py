@@ -255,10 +255,11 @@ def upload_mesh():
         grasp_args = request.form['params']
     else:
         grasp_args = '{}'
-    args_used[obj_id] = grasp_args
-    grasp_args = json.loads(grasp_args)
 
     obj_id = str(uuid.uuid4())
+
+    args_used[obj_id] = grasp_args
+    grasp_args = json.loads(grasp_args)
 
     g.mesh_id = obj_id
 
