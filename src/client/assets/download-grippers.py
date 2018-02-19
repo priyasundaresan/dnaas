@@ -11,7 +11,7 @@ import shutil
 BASE_URL = 'http://automation.berkeley.edu/dex-net-api/'
 if __name__ == "__main__":
     min_w  = 0.01
-    max_w  = 0.10
+    max_w  = 0.105
     step_w = 0.005
     gripper_params = {'fingertip_x' : 0.01,
                       'fingertip_y' : 0.01,
@@ -21,11 +21,11 @@ if __name__ == "__main__":
     
     os.mkdir('grippers')
     w = min_w
-    while w <= max_w:
+    while w < max_w:
         gripper_params['width'] = w
         files = {'gripper' : json.dumps(gripper_params)}
         r = requests.post(BASE_URL + 'gripper-mesh', files=files)
         with open('grippers/gripper_{}'.format(w * 100).replace('.', '_') + '.obj', 'w') as f:
             f.write(r.content)
-        w += step_w
         print(w)
+        w += step_w
