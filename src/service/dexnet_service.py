@@ -249,12 +249,12 @@ def after_request(response):
 @app.route('/upload-mesh', methods=['POST'])
 def upload_mesh():
     file = request.files['file']
-    if 'gripper' in request.files:
+    if 'params' in request.files:
         grasp_args = request.files['params'].read()
-    elif 'gripper' in request.form:
+    elif 'params' in request.form:
         grasp_args = request.form['params']
     else:
-        grasp_args = '{}'
+        grasp_args = '{"gripper":{}}'
 
     obj_id = str(uuid.uuid4())
 
