@@ -140,12 +140,12 @@ function init() {
         });
 
         /* Wireframe toggle setup */
-        $("#wireframe-switch").change(function() {
+        $("#wireframe-switch").change(function(event) {
             MESH.set_wireframe(event.target.checked);
         });
         
         /* Gripper render toggle setup */
-        $("#gripper-switch").change(function() {
+        $("#gripper-switch").change(function(event) {
             GRIPPER.set_render(!event.target.checked)
         });
 
