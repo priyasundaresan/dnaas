@@ -211,6 +211,6 @@ def preprocess_mesh(mesh_id, params, progress_reporter_big=lambda x: None, progr
         stbp_trans[str(pose_num)] = transform_dict
         stbp_grasp[str(pose_num)] = grasps_to_dicts(one_stbp_grasps_aligned, [grasp_metrics[idx] for idx in one_stbp_grasps_indices])
 
-    grasps = grasps_to_dicts(collision_free_grasps + colliding_grasps, grasp_metrics + [-1] * len(colliding_grasps))
+    grasps = grasps_to_dicts(collision_free_grasps, grasp_metrics)
 
     return grasps, stbp_trans, stbp_grasp
