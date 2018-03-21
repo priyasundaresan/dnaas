@@ -164,9 +164,10 @@ def preprocess_mesh(mesh_id, params, progress_reporter_big=lambda x: None, progr
         #config_updates = params['config']
         #consts._deep_update_config(config, config_updates)
         #config['cache_dir'] = consts.CONFIG['cache_dir']
-
-        for key in config['metrics'].keys():
-            config['metrics'][key]['friction_coef'] = params['config']['friction_coef']
+        
+        if 'friction_coef' in params['config'].keys():
+            for key in config['metrics'].keys():
+                config['metrics'][key]['friction_coef'] = params['config']['friction_coef']
 
     metric_used = consts.METRIC_USED
     if 'metric' in params.keys():
