@@ -59,6 +59,20 @@ export_overwrite: True
 
 # Metric params
 metrics:
+  ferrari_canny:
+    quality_method: ferrari_canny_L1
+    friction_coef: 0.5
+    num_cone_faces: 8
+    soft_fingers: 1
+    quality_type: quasi_static    
+    check_approach: False
+    all_contacts_required: 1    
+
+    # optional deterministic parameters
+    torque_scaling: 100.0
+    wrench_norm_thresh: 0.001
+    wrench_regularizer: 0.0000000001
+
   robust_ferrari_canny:
     # required parameters
     quality_method: ferrari_canny_L1
@@ -106,8 +120,9 @@ metrics:
     num_quality_samples: 10
     sampling_snapshot_rate: 1
 
-  ferrari_canny:
-    quality_method: ferrari_canny_L1
+
+  force_closure:
+    quality_method: force_closure
     friction_coef: 0.5
     num_cone_faces: 8
     soft_fingers: 1
@@ -116,6 +131,53 @@ metrics:
     all_contacts_required: 1    
 
     # optional deterministic parameters
+    torque_scaling: 0.01
+    wrench_norm_thresh: 0.001
+    wrench_regularizer: 0.0000000001
+
+  robust_force_closure:
+    # required parameters
+    quality_method: ferrari_canny_L1
+    friction_coef: 0.5
+    num_cone_faces: 3
+    soft_fingers: 1
+    quality_type: robust_quasi_static
+    all_contacts_required: 1
+    check_approach: 0
+    use_trimesh_contacts: 1
+    vis: 0
+    
+    # optional deterministic parameters
     torque_scaling: 100.0
     wrench_norm_thresh: 0.001
     wrench_regularizer: 0.0000000001
+
+    # PARAMS for robust grasp metrics
+    # uncertainty
+    grasp_uncertainty:
+      sigma_grasp_trans_x: 0.0025
+      sigma_grasp_trans_y: 0.0025
+      sigma_grasp_trans_z: 0.0025
+      sigma_grasp_rot_x: 0.01
+      sigma_grasp_rot_y: 0.01
+      sigma_grasp_rot_z: 0.01
+      sigma_grasp_approach: 0.01
+      num_prealloc_samples: 0
+    obj_uncertainty:
+      sigma_obj_trans_x: 0.001
+      sigma_obj_trans_y: 0.001
+      sigma_obj_trans_z: 0.001
+      sigma_obj_rot_x: 0.01
+      sigma_obj_rot_y: 0.01
+      sigma_obj_rot_z: 0.01
+      sigma_obj_scale: 0.00
+      sigma_obj_com: 0.01
+      num_prealloc_samples: 10
+    params_uncertainty:
+      sigma_friction_coef: 0.001
+      sigma_torque_scaling: 0.001
+      num_prealloc_samples: 0
+
+    # sampling params
+    num_quality_samples: 10
+    sampling_snapshot_rate: 1
