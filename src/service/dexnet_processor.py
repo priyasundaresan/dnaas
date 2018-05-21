@@ -33,8 +33,22 @@ def load_mesh(mesh_id, config):
     # Initialize mesh processor.
     mesh_processor = mp.MeshProcessor(filepath, consts.MESH_CACHE_DIR)
 
-    # Process mesh
-    mesh, sdf, stable_poses = mesh_processor.generate_graspable(config)
+    # Run through MP steps manually to make things easier
+    mesh_processor._load_mesh()
+    mesh_processor.mesh_.density = config['obj_density']
+    # _clean_mesh
+    mesh_processor._remove_bad_tris()
+    mesh_processor._remove_unreferenced_vertices()
+    mesh_processor._standardize_pose()
+    if config['rescale_objects']:
+        mesh_processor._rescale_vertices(config['obj_target_scale'], config['obj_scaling_mode'], config['use_uniform_com'])
+
+    mesh_processor.sdf_ = None
+    if config['generate_sdf']:
+        mesh_processor._generate_sdf(config['path_to_sdfgen'], config['sdf_dim'], config['sdf_padding'])
+    mesh_processor._generate_stable_poses(config['stp_min_prob'])
+
+    mesh, sdf, stable_poses = (mesh_processor.mesh, mesh_processor.sdf, mesh_processor.stable_poses,)
 
     # Make graspable
     graspable = GraspableObject3D(sdf           = sdf,
