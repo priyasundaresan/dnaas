@@ -39,8 +39,20 @@ def load_mesh(mesh_id, config):
     # _clean_mesh
     mesh_processor._remove_bad_tris()
     mesh_processor._remove_unreferenced_vertices()
-    mesh_processor._standardize_pose()
-    if config['rescale_objects']:
+    # # standardize pose, recover transform
+    # verts_old = mesh_processor.mesh_.vertices.copy()
+    # mesh_processor._standardize_pose()
+    # verts_new = mesh_processor.mesh_.vertices
+    # # Transform recovery
+    # MAT_SIZE = min(verts_old.shape[0], 300)
+    # tmat_rec = np.dot(np.linalg.pinv(np.hstack((verts_old[:MAT_SIZE], np.ones((MAT_SIZE, 1)) ))),
+    #                                  np.hstack((verts_new[:MAT_SIZE], np.ones((MAT_SIZE, 1)) ))).T
+    # rotation = tmat_rec[:3, :3]
+    # translation = tmat_rec[:3, 3]
+    # transform = RigidTransform(rotation=rotation, translation=translation)
+    # scale = 1.0
+
+    if config['rescale_objects'] and False: # Enable this later if we need to, but note that scaling return will be needed
         mesh_processor._rescale_vertices(config['obj_target_scale'], config['obj_scaling_mode'], config['use_uniform_com'])
 
     mesh_processor.sdf_ = None
