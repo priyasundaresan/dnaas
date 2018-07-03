@@ -100,13 +100,13 @@ a {
 
 .subtitle {
     display: flex;
-    flex-flow: row wrap;
-    align-items: center;
-    margin-bottom: 5px;
+    justify-content: space-between;
+    margin-top: 20px;
 }
 
 .subtitle h2 {
     flex: 1 1 auto;
+    margin-top: 0px;
 }
 
 #stable-poses {
