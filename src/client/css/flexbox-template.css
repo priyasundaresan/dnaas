@@ -111,3 +111,11 @@ h2 {
   font-weight: 400;
   color: #999;
 }
+
+.panel .panel-title {
+  margin: 10px;
+}
+
+.panel .panel-body {
+  padding: 0px 10px 0px 10px;
+}
