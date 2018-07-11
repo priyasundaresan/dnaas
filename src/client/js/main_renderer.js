@@ -101,7 +101,7 @@ function init() {
             range: true,
             min: 0,
             max: 100,
-            values: [ 0, 100 ],
+            values: [ 10, 100 ],
             step: 0.5,
             slide: function(event, ui) {
                 $("#metric-limits").val( ui.values[ 0 ] + " – " + ui.values[ 1 ] );

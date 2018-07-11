@@ -113,8 +113,14 @@ h2 {
   color: #999;
 }
 
-.subtitle .panel {
-  flex: 1 1 0;
+.subtitle-container {
+  display: flex;
+  flex-direction: column;
+  flex: 0 0 50%;
+}
+
+.panel-container {
+  flex: 0 0 30%;
 }
 
 .panel .panel-title {

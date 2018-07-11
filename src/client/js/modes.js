@@ -8,7 +8,10 @@ MODE.enter_grasp_mode = function() {
     $('#stable-pose-button').attr('disabled', false);
     $('#download-mesh, #download-grasps').attr('disabled', false);
     $('.progress-container').hide();
-    $("#slider-range").slider('enable');
+    var $slider = $( "#slider-range" );
+    $slider.slider('enable');
+    $("#metric-limits")
+        .val($slider.slider( "values", 0 ) + " – " + $slider.slider( "values", 1 ) );
 }
 
 MODE.enter_upload_mode = function() {

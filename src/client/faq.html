@@ -10,7 +10,7 @@
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-108286551-1"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
+        function gtag() { dataLayer.push(arguments); }
         gtag('js', new Date());
         gtag('config', 'UA-108286551-1');
     </script>
@@ -28,8 +28,8 @@
         <div class='sidebar'>
             <div class='title'>
                 <a href="https://automation.berkeley.edu">
-                <img src="assets/AUTOLab-Logo-site.png" alt="UC Berkeley Autolab" class="autolab-logo">
-            </a>
+                    <img src="assets/AUTOLab-Logo-site.png" alt="UC Berkeley Autolab" class="autolab-logo">
+                </a>
             </div>
             <ul class='nav'>
                 <li>
@@ -42,25 +42,27 @@
                     <a href="faq.html" class="active">FAQ</a>
                 </li>
                 <li>
-                    <a href="https://goo.gl/forms/R8t24eGFNUmEYpjD3">Submit Feedback</a>
+                    <a href="https://goo.gl/forms/R8t24eGFNUmEYpjD3" target="_blank">Submit Feedback</a>
                 </li>
                 <li>
-                    <a href="assets/dnaas-case-2018-submitted.pdf" download>Download Paper</a>
+                    <a href="http://goldberg.berkeley.edu/pubs/CASE2018-pusong-bill-dnaas-final.pdf" download target="_blank">Download Paper</a>
                 </li>
             </ul>
         </div>
         <div class='content'>
             <div id="errorMessage" style="display: none" class="alert alert-warning alert-dismissable">
-                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> Whoops, looks like we ran into
-                an issue. Please try again or, if the issue persists,
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> Whoops, looks like we ran into an issue. Please try again or, if the issue persists,
                 <a href="mailto:bderose@berkeley.edu?Subject=Dex-Net%20As%20A%20Service" target="_blank">report a bug</a> and we will take a closer look.
             </div>
             <div class="about">
                 <h1>Dex-Net as a Service</h1>
-                <h2>Upload object meshes and evaluate robotic grasps using <a href="https://berkeleyautomation.github.io/dex-net/">Dex-Net</a></h2>
+                <h2>Upload object meshes and evaluate robotic grasps using
+                    <a href="https://berkeleyautomation.github.io/dex-net/">Dex-Net</a>
+                </h2>
                 <h4 class="authors">
                     <div>
-                        Ken Goldberg, Jeff Mahler, Pusong Li, Bill DeRose (UC Berkeley, <a href="http://automation.berkeley.edu/">AUTOLAB</a>) and Juan Aparicio Ojea (Siemens)
+                        Ken Goldberg, Jeff Mahler, Pusong Li, Bill DeRose (UC Berkeley,
+                        <a href="http://automation.berkeley.edu/">AUTOLAB</a>) and Juan Aparicio Ojea (Siemens)
                     </div>
                     Sponsored in part by Siemens, NSF, NDSEG, Google, and Autodesk
                 </h4>
@@ -72,22 +74,24 @@
                 <div class="info">
                     <div>
                         Dex-Net as a Service (DNaaS) is a prototype cloud-based grasp planning system. Anyone can upload a 3D object mesh (in .obj
-                        format with triangular faces) and visualize candidate grasp axes using a parallel-jaw gripper,
-                        each ranked by their robustness (green for most robust to perturbations). To try it, visit the <a href="./">Home</a> page
-                        in the menu to the left.
+                        format with triangular faces) and visualize candidate grasp axes using a parallel-jaw gripper, each
+                        ranked by their robustness (green for most robust to perturbations). To try it, visit the
+                        <a
+                            href="./">Home</a> page in the menu to the left.
                     </div>
                     <br/>
                     <div>
                         Please note that computing grasps takes up to 3 minutes. The system is currently single-threaded and does not support simultaneous
-                        users. After grasps are computed they will be displayed as colored line segments. You may
-                        also choose to visualize grasps for each stable pose of your object. DNaaS is based on Dexterity Network
-                        1.0 (Dex-Net), a data-driven approach to robust robot grasping and manipulation based on a dataset
-                        of 3D object models that includes over 10,000 unique 3D object models and 2.5 million parallel-jaw
-                        grasps. Dex-Net estimates the probability of force closure under sampled uncertainty
-                        in object and gripper pose and friction. Dex-Net 1.0 uses Multi-View Convolutional Neural Networks
-                        (MV-CNNs), a deep learning method for 3D object classification, as a similarity metric between objects.
+                        users. After grasps are computed they will be displayed as colored line segments. You may also choose
+                        to visualize grasps for each stable pose of your object. DNaaS is based on Dexterity Network 1.0
+                        (Dex-Net), a data-driven approach to robust robot grasping and manipulation based on a dataset of
+                        3D object models that includes over 10,000 unique 3D object models and 2.5 million parallel-jaw grasps.
+                        Dex-Net estimates the probability of force closure under sampled uncertainty in object and gripper
+                        pose and friction. Dex-Net 1.0 uses Multi-View Convolutional Neural Networks (MV-CNNs), a deep learning
+                        method for 3D object classification, as a similarity metric between objects.
                     </div>
-                    <br/> For more information, papers, and videos, please see the Dex-Net project on <a href="https://berkeleyautomation.github.io/dex-net/">Github</a>.
+                    <br/> For more information, papers, and videos, please see the Dex-Net project on
+                    <a href="https://berkeleyautomation.github.io/dex-net/">Github</a>.
                 </div>
             </div>
         </div>
