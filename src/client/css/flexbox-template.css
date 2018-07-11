@@ -112,6 +112,10 @@ h2 {
   color: #999;
 }
 
+.subtitle .panel {
+  flex: 1 1 0;
+}
+
 .panel .panel-title {
   margin: 10px;
 }
