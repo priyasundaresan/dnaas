@@ -147,6 +147,7 @@ function init() {
         /* handle autoscaling toggle */
         $("#autoscale-switch").change(function(event) {
             MESH.set_autoscale(event.target.checked);
+            $('#upload-confirm').attr('disabled', false);
         });
         
         /* Gripper render toggle setup */
