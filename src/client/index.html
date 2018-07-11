@@ -14,6 +14,8 @@
         gtag('js', new Date());
         gtag('config', 'UA-108286551-1');
     </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/6.26.0/polyfill.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/formdata-polyfill@3.0.11/formdata.min.js"></script>
     <script src="js/third_party/three/three.js"></script>
     <script src="js/third_party/download.js"></script>
     <script src="js/third_party/three/Detector.js"></script>
@@ -62,6 +64,18 @@
                 <div></div>
                 <div></div>
             </div>
+            <div id="infoMessage" style="display: none" class="alert alert-info alert-dismissable">
+                    <a href="#" class="close" onclick="$('#infoMessage').hide();">&times;</a>
+                    We are unable to plan any collision free grasps for this object. This can happen when no grasp-points
+                    are readily accessible by the given gripper with specified width.
+
+                    This may also be due to degeneracies in the
+                    uploaded mesh. If no grasps are available for the widest gripper, please
+                    <a href="mailto:bderose@berkeley.edu?Subject=Dex-Net%20As%20A%20Service" target="_blank">report a bug</a>
+                    and try again with a different mesh.
+                    <div></div>
+                    <div></div>
+                </div>
             <div>
                 <h1>
                     <a href="https://berkeleyautomation.github.io/dex-net/">Dex-Net</a> as a Service: Compute and Display Robust Robot Grasps for Your Own Objects

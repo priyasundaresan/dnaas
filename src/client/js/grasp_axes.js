@@ -26,6 +26,9 @@ AXES.loadGraspAxes = function (url, trans=null, rot=null) {
                     data_processed.push(data[i])
                 }
             }
+            if (data_processed.length === 0) {
+                $('#infoMessage').show();
+            }
             AXES.grasp_axes_json = data_processed
             AXES.grasp_axes_json.sort(function(a, b) {
                 return a.metric_score - b.metric_score;
