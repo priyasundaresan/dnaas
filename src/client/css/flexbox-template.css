@@ -158,3 +158,12 @@ h2 {
 .faq .list-group-item-text ul {
   margin: 5px;
 }
+
+
+.alert-fixed {
+  position: fixed;
+  margin-right: 10px;
+  z-index: 9999;
+  border-radius: 0px;
+  display: block;
+}

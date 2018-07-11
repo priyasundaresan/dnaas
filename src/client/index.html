@@ -58,27 +58,29 @@
             </ul>
         </div>
         <div class='content'>
-            <div id="errorMessage" style="display: none" class="alert alert-warning alert-dismissable">
-                <a href="#" class="close" onclick="$('#errorMessage').hide();">&times;</a>
-                <h4 class="alert-heading">Whoops!</h4>
-                We ran into an issue. Please try again or, if the issue persists,
-                <a href="mailto:bderose@berkeley.edu?Subject=Dex-Net%20As%20A%20Service" target="_blank">report a bug</a> and we will take a closer look.
-                <div></div>
-                <div></div>
-            </div>
-            <div id="infoMessage" style="display: none" class="alert alert-info alert-dismissable">
-                    <a href="#" class="close" onclick="$('#infoMessage').hide();">&times;</a>
-                    <h4 class="alert-heading">No Available Grasps</h4>
-                    We are unable to plan any collision free grasps for this object. This can happen when no grasp-points
-                    are readily accessible by the given gripper with specified width.
-
-                    This may also be due to degeneracies in the
-                    uploaded mesh. If no grasps are available for the widest gripper, please
-                    <a href="mailto:bderose@berkeley.edu?Subject=Dex-Net%20As%20A%20Service" target="_blank">report a bug</a>
-                    and try again with a different mesh.
-                    <div></div>
-                    <div></div>
-                </div>
+                <div id="errorMessage" style="display: none;" class="alert alert-warning alert-dismissable alert-fixed">
+                        <a href="#" class="close" onclick="$('#errorMessage').hide();">&times;</a>
+                        <h4 class="alert-heading">Whoops!</h4>
+                        We are unable to complete your request at this time. Please try again later or
+                        see our <a href="faq.html">FAQ</a> guide to determine if your issue can be addressed.
+                        If the issue persists,
+                        <a href="mailto:bderose@berkeley.edu?Subject=Dex-Net%20As%20A%20Service" target="_blank">report a bug</a> and we will take a closer look.
+                        <div></div>
+                        <div></div>
+                    </div>
+                    <div id="infoMessage" style="display: none;" class="alert alert-warning alert-dismissable alert-fixed">
+                        <a href="#" class="close" onclick="$('#infoMessage').hide();">&times;</a>
+                        <h4 class="alert-heading">No Available Grasps</h4>
+                        We are unable to plan any collision free grasps for this object. This can happen when no grasp-points are readily accessible
+                        by the given gripper with specified width. This may also be due to degeneracies in the uploaded mesh.
+                        If
+                        no grasps are available for the widest gripper width, please
+                        <a href="mailto:bderose@berkeley.edu?Subject=Dex-Net%20As%20A%20Service" target="_blank">report a bug</a>
+                        and try again with a different mesh.
+                        See our <a href="faq.html">FAQ</a> guide to for additional help resolving your issue.
+                        <div></div>
+                        <div></div>
+                    </div>
             <div>
                 <h1>
                     <a href="https://berkeleyautomation.github.io/dex-net/">Dex-Net</a> as a Service: Compute and Display Robust Robot Grasps for Your Own Objects
@@ -105,12 +107,13 @@
                             <div class="panel-body">
                                 <ul class="list-group">
                                     <li class="list-group-item">1. Find an object you like on
-                                        <a href="https://www.thingiverse.com/newest" target="_blank">Thingiverse</a>, Click on the Object, Download All Files, then unzip and go into
+                                        <a href="https://www.thingiverse.com/newest" target="_blank">Thingiverse</a>. Click on the Object, Download All Files,
+                                        then unzip and go into
                                         Files to find the .stl file for the object on your computer.
                                     </li>
                                     <li class="list-group-item">2. Use the
                                         <a href="https://www.meshconvert.com/" target="_blank">Free Convert Tool</a> to convert the .stl file to an .obj file by selecting Output
-                                        Format (WaveFront Object (.obj)). Click the converted .obj file to download it to
+                                        Format (WaveFront Object (.obj)). Once converted, click the .obj file to download it to
                                         your computer for use by Dex-Net as a Service (DNaaS).
                                     </li>
                                 </ul>
