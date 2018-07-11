@@ -4,7 +4,7 @@ var ERROR = {
 ERROR.showDialog = function(message){   
     em = $('#errorMessage')
     if (MESH.id != undefined){
-        em[0].lastElementChild.previousElementSibling.innerText = "Please include your mesh id " + MESH.id + " in your report"
+        em[0].lastElementChild.previousElementSibling.innerText = "Please include your mesh id " + MESH.id + " in your report. "
     } else{
         em[0].lastElementChild.previousElementSibling.innerText = ""
     }
