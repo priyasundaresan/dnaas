@@ -103,7 +103,7 @@ AXES.addGraspAxes = function(min_metric, max_metric, trans=null, rot=null) {
 AXES.set_slider = function(relative) {
     AXES.relative_colors = relative;
     AXES.slider.slider({
-        values: [ 40, 100 ],
+        values: [ 10, 100 ],
         stop: function(event, ui) {
             if (AXES.grasp_axes_json.length != 0){
                 min = AXES.grasp_axes_json[0]['metric_score'];
