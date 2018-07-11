@@ -73,6 +73,9 @@ REMOTE.followProgress = function(success, fail) {
                     MODE.enter_grasp_mode();
                     REMOTE.set_pbar(0, "Working...", 0)
                     $('.progress-estimated-wait').hide();
+                    if (MESH.autoscale) {
+                        $('#autoscale-switch').attr('disabled', true);
+                    }
                 })
                 .catch((e) => {
                     console.error(e);

@@ -30,4 +30,5 @@ MODE.enter_pbar_mode = function() {
     $('#download-mesh, #download-grasps').attr('disabled', true);
     $('.progress-container').show();
     $("#slider-range").slider('disable');
+    $('#autoscale-switch').attr('disabled', true);
 }
