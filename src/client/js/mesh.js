@@ -73,7 +73,7 @@ MESH.set_wireframe = function(value){
     MESH.material_main.wireframe = value;
 }
 
-MESH.set_wireframe = function(value){
+MESH.set_autoscale = function(value){
     MESH.autoscale = value;
 }
 
