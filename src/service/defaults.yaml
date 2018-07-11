@@ -37,8 +37,8 @@ obj_density: 4000.0
 use_uniform_com: 1
 
 rescale_objects: 1
-obj_target_scale: 1.0
-obj_scaling_mode: relative
+obj_target_scale: 0.040
+obj_scaling_mode: min
 
 # Visualization params
 show_gripper: False

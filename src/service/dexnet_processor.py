@@ -26,7 +26,7 @@ def grasps_to_dicts(grasps, metrics):
                             'metric_score' : metric})
     return grasps_list
 
-def load_mesh(mesh_id, config):
+def load_mesh(mesh_id, config, rescale_mesh = False):
     # set up filepath from mesh id (this is where the service dumps the mesh
     filepath = os.path.join(consts.MESH_CACHE_DIR, mesh_id) + '.obj'
 
@@ -52,7 +52,8 @@ def load_mesh(mesh_id, config):
     # transform = RigidTransform(rotation=rotation, translation=translation)
     # scale = 1.0
 
-    if config['rescale_objects'] and False: # Enable this later if we need to, but note that scaling return will be needed
+    if rescale_mesh: # config['rescale_objects'] <- local config, current use case is pass in as arg
+        mesh_processor._standardize_pose()
         mesh_processor._rescale_vertices(config['obj_target_scale'], config['obj_scaling_mode'], config['use_uniform_com'])
 
     mesh_processor.sdf_ = None
@@ -199,13 +200,16 @@ def preprocess_mesh(mesh_id, params, progress_reporter_big=lambda x: None, progr
     if 'metric' in params.keys():
         metric_used = params['metric']
 
+    rescale_mesh = False
+    if 'rescale_mesh' in params.keys():
+        rescale_mesh = params['rescale_mesh']
 
     # Update gripper params with defaults
     for key in consts.GRIPPER_PARAM_DEFAULTS:
         if key not in gripper_params:
             gripper_params[key] = consts.GRIPPER_PARAM_DEFAULTS[key]
 
-    graspable, stable_poses = load_mesh(mesh_id, config)
+    graspable, stable_poses = load_mesh(mesh_id, config, rescale_mesh = rescale_mesh)
 
     # Load gripper
     gripper = ParametrizedParallelJawGripper.load('generic_{}'.format(PROCESS_NAME), gripper_dir=consts.GRIPPER_DIR)
