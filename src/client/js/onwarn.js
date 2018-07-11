@@ -1,8 +1,8 @@
-var ERROR = {
+var WARN = {
 };
 
-ERROR.showDialog = function(message){   
-    var em = $('#errorMessage');
+WARN.showDialog = function(message){   
+   var em = $('#infoMessage');
     if (MESH.id != undefined){
         em[0].lastElementChild.previousElementSibling.innerText = "Please include your mesh id " + MESH.id + " in your report. "
     } else{
@@ -16,9 +16,3 @@ ERROR.showDialog = function(message){
     
     em.show();
 }
-
-
-window.addEventListener('error', function(error) {
-    console.log(error);
-    ERROR.showDialog("Error message from " + error.filename + " ---- " + error.message);
-});

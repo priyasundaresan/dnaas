@@ -27,7 +27,7 @@ AXES.loadGraspAxes = function (url, trans=null, rot=null) {
                 }
             }
             if (data_processed.length === 0) {
-                $('#infoMessage').show();
+                WARN.showDialog()
             }
             AXES.grasp_axes_json = data_processed
             AXES.grasp_axes_json.sort(function(a, b) {

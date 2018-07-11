@@ -73,8 +73,7 @@
                         <h4 class="alert-heading">No Available Grasps</h4>
                         We are unable to plan any collision free grasps for this object. This can happen when no grasp-points are readily accessible
                         by the given gripper with specified width. This may also be due to degeneracies in the uploaded mesh.
-                        If
-                        no grasps are available for the widest gripper width, please
+                        If no grasps are available for the widest gripper width, please
                         <a href="mailto:bderose@berkeley.edu?Subject=Dex-Net%20As%20A%20Service" target="_blank">report a bug</a>
                         and try again with a different mesh.
                         See our <a href="faq.html">FAQ</a> guide to for additional help resolving your issue.
@@ -211,6 +210,7 @@
             <input id="mesh-file-field" type="file" style="display:none" accept='.obj' />
         </div>
         <script src="js/onerror.js"></script>
+        <script src="js/onwarn.js"></script>
         <script src="js/gripper_store.js"></script>
         <script src="js/world_frame.js"></script>
         <script src="js/grasp_axes.js"></script>
