@@ -1,18 +1,21 @@
-@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600');
-@import url('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:400,600");
+@import url("https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css");
 
-*, *:before, *:after {
+*,
+*:before,
+*:after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-html, body {
+html,
+body {
   height: 100vh;
 }
 
 body {
-  font: 600 12px/1 'Open Sans', sans-serif;
+  font: 600 12px/1 "Open Sans", sans-serif;
   color: #333;
   background: #333;
   overflow-x: hidden;
@@ -31,8 +34,8 @@ body {
   flex: 1 1 200px;
   padding: 30px;
   background: #eee;
-  box-shadow: 0 0 5px rgba(0,0,0,1);
-  transition: transform .3s;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 1);
+  transition: transform 0.3s;
   height: 100vh;
   display: flex;
   flex-direction: column;
@@ -44,7 +47,7 @@ body {
 }
 
 .button:before {
-  content: '\f0c9';
+  content: "\f0c9";
   font: 42px fontawesome;
 }
 
@@ -62,8 +65,8 @@ body {
 }
 
 .title img {
-    height: 100%;
-    width: 100%;
+  height: 100%;
+  width: 100%;
 }
 
 .nav li a {
@@ -86,11 +89,21 @@ body {
   left: 20px;
 }
 
-.nav li:nth-child(1) a:before { content: '\f015'; }
-.nav li:nth-child(2) a:before { content: '\f05a'; }
-.nav li:nth-child(3) a:before { content: '\f059'; }
-.nav li:nth-child(4) a:before { content: '\f086'; }
-.nav li:nth-child(5) a:before { content: '\f19d'; }
+.nav li:nth-child(1) a:before {
+  content: "\f015";
+}
+.nav li:nth-child(2) a:before {
+  content: "\f05a";
+}
+.nav li:nth-child(3) a:before {
+  content: "\f059";
+}
+.nav li:nth-child(4) a:before {
+  content: "\f086";
+}
+.nav li:nth-child(5) a:before {
+  content: "\f19d";
+}
 
 .nav li a:hover {
   background: #444;
@@ -98,7 +111,7 @@ body {
 
 .nav li a.active {
   box-shadow: inset 5px 0 0 #5b5, inset 6px 0 0 #222;
-  background  : #444;
+  background: #444;
 }
 
 h1 {
@@ -131,7 +144,17 @@ h2 {
   padding: 0px 10px 0px 10px;
 }
 
-
 .faq .list-group-item {
   margin-bottom: 10px;
+  border-radius: 0px;
+}
+
+.faq .list-group-item-text .list-group-flush .list-group-item {
+  border: 0px;
+  margin: 0px;
+  padding: 5px 5px 0px 5px;
+}
+
+.faq .list-group-item-text ul {
+  margin: 5px;
 }
