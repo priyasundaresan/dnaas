@@ -130,3 +130,8 @@ h2 {
 .panel .panel-body {
   padding: 0px 10px 0px 10px;
 }
+
+
+.faq .list-group-item {
+  margin-bottom: 10px;
+}
