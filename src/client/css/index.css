@@ -118,15 +118,15 @@ a {
     display: flex;
 }
 
-.stable-pose-button-container {
-    margin-left: 10px;
-}
-
 .boxes {
     display: flex;
     align-items: flex-end;
     flex: 2 1 auto;
     justify-content: flex-end;
+}
+
+.boxes label {
+    margin-left: 10px;
 }
 
 .buttons {

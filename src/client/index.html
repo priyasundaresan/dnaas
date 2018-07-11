@@ -45,10 +45,13 @@
                     <a href="about.html">About</a>
                 </li>
                 <li>
+                    <a href="faq.html">FAQ</a>
+                </li>
+                <li>
                     <a href="https://goo.gl/forms/R8t24eGFNUmEYpjD3">Submit Feedback</a>
                 </li>
                 <li>
-                    <a href="assets/dnaas-case-2018-submitted.pdf" download>Download Paper</a>
+                    <a href="http://goldberg.berkeley.edu/pubs/CASE2018-pusong-bill-dnaas-final.pdf" download>Download Paper</a>
                 </li>
             </ul>
         </div>
@@ -68,18 +71,19 @@
                 <div class="subtitle">
                     <h2>
                         Choose an example below, or
-                        <button class="btn btn-default" href="#" id="upload-link" title="foooooo">upload your own</button>
+                        <button class="btn btn-default" href="#" id="upload-link" title="upload .obj">upload .obj file</button>
                     </h2>
                     <div class="panel panel-primary">
-                        <h5 class="panel-title">Need an .obj file?</h5>
+                        <h5 class="panel-title">To get your own .obj file to try:</h5>
                         <div class="panel-body">
                             <ul class="list-group">
                                 <li class="list-group-item">1. Find an object you like on
-                                    <a href="https://www.thingiverse.com/newest">Thingiverse</a>,</li>
+                                    <a href="https://www.thingiverse.com/newest" target="_blank">Thingiverse</a>,
+                                    Click on the Object, Download All Files, then unzip and go into Files to find the .stl file for the object on your computer.</li>
                                 </li>
-                                <li class="list-group-item">2. Download the 3D object model,</li>
-                                <li class="list-group-item">3. <a href="https://www.meshconvert.com/">Convert</a> any .stl files to .obj files, and</li>
-                                <li class="list-group-item">4. Upload the .obj file to DNaaS.</li>
+                                <li class="list-group-item">2. Use the <a href="https://www.meshconvert.com/" target="_blank">Free Convert Tool</a> to convert the .stl file to an .obj file
+                                by selecting Output Format (WaveFront Object (.obj)).
+                                Click the converted .obj file to download it to your computer for use by Dex-Net as a Service (DNaaS)</li>
                             </ul>
                             </ul>
                         </div>
@@ -138,6 +142,10 @@
                             <div>
                                 <label>
                                     <input id="wireframe-switch" type="checkbox" value="" disabled="true">Render mesh as wireframe</label>
+                            </div>
+                            <div>
+                                <label>
+                                    <input id="autoscale-switch" type="checkbox" value="" disabled="true">Autoscale mesh</label>
                             </div>
                             <div class="stable-pose-button-container">
                                 <label>

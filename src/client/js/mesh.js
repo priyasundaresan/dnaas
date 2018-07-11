@@ -3,6 +3,7 @@ var MESH = {
     mesh_main: null,
     mesh_main_file: undefined,
     id: undefined,
+    autoscale: true
 };
 MESH.material_main.side = THREE.DoubleSide;
 MESH.addModelUrl = function(url, trans=null, rot=null) {
@@ -49,7 +50,7 @@ MESH.addModelFile = function(file, trans=null, rot=null) {
                     object.applyQuaternion(new THREE.Quaternion(rot[1], rot[2], rot[3], rot[0]));
                 }
                 GLOBAL.camera.reset();
-                $('#wireframe-switch') // only enable wireframe when mesh is loaded.
+                $('#wireframe-switch, #autoscale-switch') // only enable wireframe when mesh is loaded.
                     .attr('disabled', false);
                 GRIPPER.update(); // Update gripper so that it doesn't collide
                 resolve();
@@ -72,8 +73,12 @@ MESH.set_wireframe = function(value){
     MESH.material_main.wireframe = value;
 }
 
+MESH.set_wireframe = function(value){
+    MESH.autoscale = value;
+}
+
 MESH.clear = function() {
-    $('#wireframe-switch') // disable mesh and stable pose when no mesh is loaded
+    $('#wireframe-switch, #autoscale-switch') // disable mesh and stable pose when no mesh is loaded
         .attr('disabled', true);
     GLOBAL.world.remove(MESH.mesh_main);
 }

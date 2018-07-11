@@ -88,8 +88,9 @@ body {
 
 .nav li:nth-child(1) a:before { content: '\f015'; }
 .nav li:nth-child(2) a:before { content: '\f05a'; }
-.nav li:nth-child(3) a:before { content: '\f086'; }
-.nav li:nth-child(4) a:before { content: '\f19d'; }
+.nav li:nth-child(3) a:before { content: '\f059'; }
+.nav li:nth-child(4) a:before { content: '\f086'; }
+.nav li:nth-child(5) a:before { content: '\f19d'; }
 
 .nav li a:hover {
   background: #444;
@@ -110,6 +111,10 @@ h2 {
   font-size: 18px;
   font-weight: 400;
   color: #999;
+}
+
+.subtitle .panel {
+  flex: 1 1 0;
 }
 
 .panel .panel-title {

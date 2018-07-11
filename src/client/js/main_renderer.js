@@ -143,6 +143,11 @@ function init() {
         $("#wireframe-switch").change(function(event) {
             MESH.set_wireframe(event.target.checked);
         });
+
+        /* handle autoscaling toggle */
+        $("#autoscale-switch").change(function(event) {
+            MESH.set_autoscale(event.target.checked);
+        });
         
         /* Gripper render toggle setup */
         $("#gripper-switch").change(function(event) {
