@@ -8,6 +8,7 @@ MODE.enter_grasp_mode = function() {
     $('#stable-pose-button').attr('disabled', false);
     $('#download-mesh, #download-grasps').attr('disabled', false);
     $('.progress-container').hide();
+    $("#gripper-width-slider").slider('disable');
     var $slider = $( "#slider-range" );
     $slider.slider('enable');
     $("#metric-limits")
@@ -31,4 +32,5 @@ MODE.enter_pbar_mode = function() {
     $('.progress-container').show();
     $("#slider-range").slider('disable');
     $('#autoscale-switch').attr('disabled', true);
+    $("#gripper-width-slider").slider('disable');
 }
