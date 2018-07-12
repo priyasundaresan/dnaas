@@ -91,12 +91,22 @@
                     </li>
                     <li class="list-group-item">
                         <h4 class="list-group-item-heading">What scale does DNaaS expect uploaded .obj meshes to be in?</h4>
-                        <p class="list-group-item-text">The DNaaS interprets mesh object units to be specified in meters by default. 
-                            The service will autoscale any mesh you upload to fit within the given gripper. If you wish to disable this feature and
+                        <p class="list-group-item-text">The DNaaS interprets mesh object units to be specified in meters by default.
+                            The browser client will rescale any mesh you upload to fit within the given gripper.
+                            If you wish to disable this feature and
                             use the scale given in your original .obj, uncheck the "Autoscale mesh" box on the top right
                             of 3D scene.
                         </p>
                     </li>
+                    <li class="list-group-item">
+                            <h4 class="list-group-item-heading">Why does the gripper sometimes not appear in the 3D window?</h4>
+                            <p class="list-group-item-text">The gripper does not appear sometimes in the 3D window due to a mismatch
+                                between the scale of the gripper object mesh and the current target object mesh. Drastically different
+                                scales prevent us from rendering both meshes (the gripper and target object) visibly in the scene.
+                                For example, uploading a cm-scaled mesh will result in the gripper (specified in meter-scale) appearing
+                                as a very small object in the scene.
+                            </p>
+                        </li>
                     <li class="list-group-item">
                         <h4 class="list-group-item-heading">Where can I read more about the DNaaS HTTP API?</h4>
                         <p class="list-group-item-text">The DNaaS API documentation is hosted

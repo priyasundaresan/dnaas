@@ -54,7 +54,7 @@ body {
 /* Demo Navigation */
 
 .title {
-  font-size: 16px;
+  font-size: 22px;
   line-height: 50px;
   text-align: center;
   text-transform: uppercase;
@@ -73,7 +73,7 @@ body {
   display: block;
   position: relaitve;
   padding: 20px 0 20px 50px;
-  font-size: 12px;
+  font-size: 14px;
   color: #eee;
   border-bottom: 1px solid #222;
 }
@@ -116,12 +116,12 @@ body {
 
 h1 {
   margin: 10px 0 5px;
-  font-size: 28px;
+  font-size: 34px;
   font-weight: 400;
 }
 
 h2 {
-  font-size: 18px;
+  font-size: 24px;
   font-weight: 400;
   color: #999;
 }
@@ -147,6 +147,10 @@ h2 {
 .faq .list-group-item {
   margin-bottom: 10px;
   border-radius: 0px;
+}
+
+.faq h1 {
+  margin-bottom: 25px;
 }
 
 .faq .list-group-item-text .list-group-flush .list-group-item {
