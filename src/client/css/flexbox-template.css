@@ -15,7 +15,7 @@ body {
 }
 
 body {
-  font: 600 12px/1 "Open Sans", sans-serif;
+  font-size: 1.3em;
   color: #333;
   background: #333;
   overflow-x: hidden;
@@ -54,7 +54,7 @@ body {
 /* Demo Navigation */
 
 .title {
-  font-size: 22px;
+  font-size: 16px;
   line-height: 50px;
   text-align: center;
   text-transform: uppercase;
@@ -116,12 +116,12 @@ body {
 
 h1 {
   margin: 10px 0 5px;
-  font-size: 34px;
+  font-size: 28px;
   font-weight: 400;
 }
 
 h2 {
-  font-size: 24px;
+  font-size: 18px;
   font-weight: 400;
   color: #999;
 }
@@ -176,7 +176,7 @@ h2 {
 .alert-dismissable .close {
   color: black;
   font-weight: bold;
-  font-size: 25px;
+  font-size: 17px;
   opacity: 0.9;
 }
 
