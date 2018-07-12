@@ -62,8 +62,7 @@
                         The original DNaaS paper will appear at
                         <a href="http://case2018.org/" target="_blank">CASE 2018</a>
                         and is available
-                        <a href="http://goldberg.berkeley.edu/pubs/CASE2018-pusong-bill-dnaas-final.pdf"
-                            download target="_blank">online</a> as a PDF.
+                        <a href="http://goldberg.berkeley.edu/pubs/CASE2018-pusong-bill-dnaas-final.pdf" download target="_blank">online</a> as a PDF.
                     </p>
                 </li>
                 <li class="list-group-item">
@@ -71,31 +70,41 @@
                     <div class="list-group-item-text">
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item">1. Find an object you like on
-                                <a href="https://www.thingiverse.com/newest" target="_blank">Thingiverse</a>, Click on the Object, Download All Files, then unzip and go into Files to
-                                find the .stl file for the object on your computer.
-                            </li>
-                            <li class="list-group-item">2. Use the
-                                <a href="https://www.meshconvert.com/" target="_blank">Free Convert Tool</a> to convert the .stl file to an .obj file by selecting Output Format
-                                (WaveFront Object (.obj)). Click the converted .obj file to download it to your computer
-                                for use by Dex-Net as a Service (DNaaS).
-                            </li>
+                                <a href="https://www.thingiverse.com/newest" target="_blank">Thingiverse</a> and click it to
+                                view more details.</li>
+                                <li class="list-group-item">2. Download All Files using the blue box in the upper right on the Thingiverse website.</li>
+                                    <li class="list-group-item">4. Navigate to the downloaded folder and unzip or extract the entire .zip file.</li>
+                                    <li class="list-group-item">
+                                        5. Inside the unzipped folder, go into Files and find the .stl file for the object on your computer.
+                                    </li>
+                                    <li class="list-group-item">3. Use the
+                                        <a href="https://www.meshconvert.com/" target="_blank">Free Convert Tool</a> to convert the .stl file to an .obj file. Be sure to select
+                                        the correct Output Format (WaveFront Object (.obj)), so DNaaS can understand your
+                                        mesh.
+                                    </li>
+                                    <li class="list-group-item">4. When the conversion is done, click the .obj file link on the Converter
+                                        webpage to download it to your computer
+                                        for use by Dex-Net as a Service (DNaaS).
+                                    </li>
                         </ul>
                     </div>
-                </li>
-                <li class="list-group-item">
-                    <h4 class="list-group-item-heading">What scale does DNaaS expect uploaded .obj meshes to be in?</h4>
-                    <p class="list-group-item-text">DNaaS expects mesh object units to be specified in meters. By default, the service
-                        will autoscale the mesh you upload to fit within the given gripper. If you wish to disable this feature and
-                        use the scale given in your original .obj, uncheck the "Autoscale mesh" box on the top right of
-                        3D scene.
-                    </p>
-                </li>
-                <li class="list-group-item">
-                    <h4 class="list-group-item-heading">Where can I read more about the DNaaS HTTP API?</h4>
-                    <p class="list-group-item-text">The DNaaS API documentation is hosted <a href="https://gist.github.com/bderose/61d70384d159af3715865b35b75e96e0" target="_blank">online</a>
-                         for users interested in accessing the service directly via HTTP.</p>
-                </li>
-                <li class="list-group-item">
+                    </li>
+                    <li class="list-group-item">
+                        <h4 class="list-group-item-heading">What scale does DNaaS expect uploaded .obj meshes to be in?</h4>
+                        <p class="list-group-item-text">The DNaaS interprets mesh object units to be specified in meters by default. 
+                            The service will autoscale any mesh you upload to fit within the given gripper. If you wish to disable this feature and
+                            use the scale given in your original .obj, uncheck the "Autoscale mesh" box on the top right
+                            of 3D scene.
+                        </p>
+                    </li>
+                    <li class="list-group-item">
+                        <h4 class="list-group-item-heading">Where can I read more about the DNaaS HTTP API?</h4>
+                        <p class="list-group-item-text">The DNaaS API documentation is hosted
+                            <a href="https://gist.github.com/bderose/61d70384d159af3715865b35b75e96e0"
+                                target="_blank">online</a>
+                            for users interested in accessing the service directly via HTTP.</p>
+                    </li>
+                    <li class="list-group-item">
                         <h4 class="list-group-item-heading">Are there any examples of using the DNaaS HTTP API programmatically?</h4>
                         <p class="list-group-item-text">Examples of how to access the DNaaS API via
                             <a href="https://gist.github.com/bderose/0c1c2cad2d4291b16a9a24d4b271da1f" target="_blank">Python</a> and
