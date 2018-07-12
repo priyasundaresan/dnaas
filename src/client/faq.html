@@ -73,7 +73,7 @@
                                 <a href="https://www.thingiverse.com/newest" target="_blank">Thingiverse</a> and click it to
                                 view more details.</li>
                                 <li class="list-group-item">2. Download All Files using the blue box in the upper right on the Thingiverse website.</li>
-                                    <li class="list-group-item">4. Navigate to the downloaded folder and unzip or extract the entire .zip file.</li>
+                                    <li class="list-group-item">4. Navigate to the downloaded folder on your computer and unzip or extract the entire .zip file.</li>
                                     <li class="list-group-item">
                                         5. Inside the unzipped folder, go into Files and find the .stl file for the object on your computer.
                                     </li>
@@ -91,11 +91,12 @@
                     </li>
                     <li class="list-group-item">
                         <h4 class="list-group-item-heading">What scale does DNaaS expect uploaded .obj meshes to be in?</h4>
-                        <p class="list-group-item-text">The DNaaS interprets mesh object units to be specified in meters by default.
-                            The browser client will rescale any mesh you upload to fit within the given gripper.
+                        <p class="list-group-item-text">DNaaS interprets mesh object units to be specified in meters by default.
+                            The browser client will rescale any mesh you upload to fit within the given gripper by default.
                             If you wish to disable this feature and
                             use the scale given in your original .obj, uncheck the "Autoscale mesh" box on the top right
-                            of 3D scene.
+                            of 3D scene. This may lead to no grasps being found due to a scale mismatch between the gripper
+                            target object.
                         </p>
                     </li>
                     <li class="list-group-item">
@@ -103,7 +104,7 @@
                             <p class="list-group-item-text">The gripper does not appear sometimes in the 3D window due to a mismatch
                                 between the scale of the gripper object mesh and the current target object mesh. Drastically different
                                 scales prevent us from rendering both meshes (the gripper and target object) visibly in the scene.
-                                For example, uploading a cm-scaled mesh will result in the gripper (specified in meter-scale) appearing
+                                For example, uploading a cm-scaled mesh may result in the gripper (specified in meter-scale) appearing
                                 as a very small object in the scene.
                             </p>
                         </li>
