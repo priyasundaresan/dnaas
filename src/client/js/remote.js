@@ -92,6 +92,8 @@ REMOTE.followProgress = function(success, fail) {
                     if (result == "MemoryError"){
                         ERROR.showDialog("You got a MemoryError, either the server is overloaded or your mesh contains too many triangluar faces. " +
                         "Try reducing the complexity of your mesh by reducing the number of triangular faces and uploading the simplified .obj file to DNaaS.")
+                    } else {
+                        ERROR.showDialog()
                     }
                 }
             });
