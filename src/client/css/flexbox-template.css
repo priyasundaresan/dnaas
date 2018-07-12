@@ -179,3 +179,8 @@ h2 {
   font-size: 25px;
   opacity: 0.9;
 }
+
+
+.alert {
+  max-width: 50%;
+}
