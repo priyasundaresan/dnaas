@@ -22,7 +22,6 @@ def grasps_to_dicts(grasps, metrics):
         grasps_list.append({'center' : list(grasp.center),
                             'axis' : list(grasp.axis),
                             'open_width' : grasp.max_grasp_width_,
-                            'grasp_width' : grasp.jaw_width,
                             'metric_score' : metric})
     return grasps_list
 
