@@ -8,7 +8,7 @@ MODE.enter_grasp_mode = function() {
     $('#stable-pose-button').attr('disabled', false);
     $('#download-mesh, #download-grasps').attr('disabled', false);
     $('.progress-container').hide();
-    $("#gripper-width-slider").slider('disable');
+    $("#gripper-width-slider").slider('enable');
     var $slider = $( "#slider-range" );
     $slider.slider('enable');
     $("#metric-limits")
@@ -21,6 +21,7 @@ MODE.enter_upload_mode = function() {
     $('#stable-pose-button').attr('disabled', true);
     $('#download-mesh, #download-grasps').attr('disabled', true);
     $('.progress-container').hide();
+    $("#gripper-width-slider").slider('enable');
     $("#slider-range").slider('disable');
 }
 
