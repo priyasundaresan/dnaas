@@ -237,7 +237,8 @@ def after_request(response):
         'endpoint:{endpoint}, '      .format(endpoint=request.endpoint) + 
         'request_method:{method}, '  .format(method=request.method.lower()) + 
         'status_code:{status_code}, '.format(status_code=response.status_code) + 
-        'ms_elapsed_time:{time}, '   .format(time=elapsed)
+        'ms_elapsed_time:{time}, '   .format(time=elapsed) +
+        'request_ip_addr:{req_ip}, ' .format(req_ip=request.remote_addr)
     )
 
     # Record our response time metric
