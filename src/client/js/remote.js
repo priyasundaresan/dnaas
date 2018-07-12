@@ -10,8 +10,6 @@ REMOTE.uploadMesh = function() {
     $('.progress-estimated-wait').hide();
     var reader = new FileReader();
     var xhr = new XMLHttpRequest();
-    xhr.setRequestHeader('Accept', 'application/json, text/javascript');
-    xhr.setRequestHeader('Content-Type', 'application/json, text/javascript');
     this.xhr = xhr;
     var self = this;
     this.xhr.upload.addEventListener("progress", function(e) {
@@ -37,6 +35,8 @@ REMOTE.uploadMesh = function() {
         "rescale_mesh" : MESH.autoscale
     }));
     xhr.open("POST", "http://automation.berkeley.edu/dex-net-api/upload-mesh");
+    xhr.setRequestHeader('Accept', 'application/json, text/javascript');
+    xhr.setRequestHeader('Content-Type', 'application/json, text/javascript');
     xhr.send(formData);
 }
 
