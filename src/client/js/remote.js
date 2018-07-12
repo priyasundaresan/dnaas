@@ -36,7 +36,6 @@ REMOTE.uploadMesh = function() {
     }));
     xhr.open("POST", "http://automation.berkeley.edu/dex-net-api/upload-mesh");
     xhr.setRequestHeader('Accept', 'application/json');
-    xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.send(formData);
 }
 
