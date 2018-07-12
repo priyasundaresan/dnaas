@@ -167,3 +167,11 @@ h2 {
   border-radius: 0px;
   display: block;
 }
+
+
+.alert-dismissable .close {
+  color: black;
+  font-weight: bold;
+  font-size: 25px;
+  opacity: 0.9;
+}
