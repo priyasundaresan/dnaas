@@ -57,38 +57,65 @@
                 <a href="https://goo.gl/forms/R8t24eGFNUmEYpjD3" target="_blank">reporting a bug</a> and we will take a closer look.
             </div>
             <div class="about">
-                <h1>Dex-Net as a Service</h1>
-                <h2>Upload custom object meshes and evaluate robust robot grasps using <a href="https://berkeleyautomation.github.io/dex-net/" target="_blank">Dex-Net</a></h2>
-                <h4 class="authors">
+                <h1>Dex-Net as a Service (DNaaS)</h1>
+                <h4>
                     <div>
                         Pusong Li, Bill DeRose, Jeffrey Mahler, Ajay Kumar Tanwani, Ken Goldberg (UC Berkeley, <a href="http://autolab.berkeley.edu/" target="_blank">AUTOLAB</a>) and Juan Aparicio Ojea (Siemens)
                     </div>
-                    Sponsored in part by Siemens, NSF, NDSEG, Google, and Autodesk
-                </h4>
-                <h4>
+                    <br>
+                    <p>
+                        UC Berkeley’s <a href="http://autolab.berkeley.edu" target="_blank">AUTOLAB</a>
+                    </p>
+                    <br>
                     <strong>
                         ** Currently in beta release. Please report bugs and suggestions to Pusong Li at alanpusongli@berkeley.edu **
                     </strong>
+
+                </h4>
+                <h4>
+
                 </h4>
                 <div class="info">
-                    <div>
-                        Dex-Net as a Service (DNaaS) is a prototype cloud-based grasp planning system. Anyone can upload a 3D object mesh (in .obj
-                        format with triangular faces) and visualize candidate grasp axes using a parallel-jaw gripper,
-                        each ranked by their robustness (green for most robust to perturbations). To try it, visit the <a href="./" target="_blank">Home</a> page
-                        in the menu to the left.
-                    </div>
-                    <br/>
-                    <div>
-                        Please note that computing grasps takes up to 3 minutes. The system is currently single-threaded and does not support simultaneous
-                        users. After grasps are computed they will be displayed as colored line segments. You may
-                        also choose to visualize grasps for each stable pose of your object. DNaaS is based on Dexterity Network
-                        1.0 (Dex-Net), a data-driven approach to robust robot grasping and manipulation based on a dataset
-                        of 3D object models that includes over 10,000 unique 3D object models and 2.5 million parallel-jaw
-                        grasps. Dex-Net estimates the probability of force closure under sampled uncertainty
-                        in object and gripper pose and friction. Dex-Net 1.0 uses Multi-View Convolutional Neural Networks
-                        (MV-CNNs), a deep learning method for 3D object classification, as a similarity metric between objects.
-                    </div>
-                    <br/> For more information, papers, and videos, please see the Dex-Net project on <a href="https://berkeleyautomation.github.io/dex-net/" target="_blank">Github</a>.
+                    <p>
+                        Anyone can upload a 3D object mesh (in <a href="https://en.wikipedia.org/wiki/Wavefront_.obj_file" target="_blank">.obj</a> format with triangular faces)
+and visualize candidate grasps for a parallel-jaw gripper, each ranked by
+their robustness to inherent uncertainty/errors in sensing, control, and
+physics (green for most robust).
+                    </p>
+                    <p>
+                        Computing robust grasps currently requires up to 3 minutes; this version
+is single-threaded and does not support simultaneous users.
+                    </p>
+                    <p>
+                        <a href="https://berkeleyautomation.github.io/dex-net/#dexnet_1" target="_blank">Dex-Net 1.0</a> estimates the probability of force closure under sampled
+uncertainty in object and gripper pose and friction.  Dex-Net
+<a href="https://berkeleyautomation.github.io/dex-net/#dexnet_2" target="_blank">2.0</a> and
+<a href="https://berkeleyautomation.github.io/dex-net/#dexnet_3" target="_blank">3.0</a>
+include Deep Learning using the the Dex-Net 1.0 sampling model to
+synthesize training data.
+                    </p>
+                    <p>
+                        <cite>
+                        <a href="http://goldberg.berkeley.edu/pubs/icra2016-final-dex-net-v20.pdf" target="_blank">
+                            Dex-Net 1.0: A Cloud-Based Network of 3D Objects for Robust Grasp Planning
+Using a Multi-Armed Bandit Model with Correlated Rewards</a>. Jeffrey Mahler,
+Florian T. Pokorny, Brian Hou, Melrose Roderick, Michael Laskey, Mathieu
+Aubry, Kai Kohlhoff, Torsten Kroeger, James Kuffner, Ken Goldberg. IEEE
+International Conference on Robotics and Automation, (ICRA), Stockholm,
+Sweden. May 2016. Finalist for Best Manipulation Paper Award.
+
+</cite>
+                    </p>
+                    <p>
+                        The DNaaS project is sponsored in part by NSF, NDSEG, Siemens, Google,
+Amazon Robotics, Toyota Research Institute, Autodesk, ABB, Samsung, Knapp,
+Loccioni, Honda, Intel, Comcast, Cisco, Hewlett-Packard, PhotoNeo, and
+NVidia.
+</p>
+<p>
+For more information, papers, and videos, please see the Dex-Net project on
+ <a href="https://berkeleyautomation.github.io/dex-net/" target="_blank">Github</a>, or read our <a href="faq.html" target="_blank">FAQs</a>.
+                    </p>
                 </div>
             </div>
         </div>
