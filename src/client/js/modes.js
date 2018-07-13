@@ -34,4 +34,5 @@ MODE.enter_pbar_mode = function() {
     $("#slider-range").slider('disable');
     $('#autoscale-switch').attr('disabled', true);
     $("#gripper-width-slider").slider('disable');
+    $("#errorMessage, #infoMessage").hide();
 }
