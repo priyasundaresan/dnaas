@@ -184,3 +184,8 @@ h2 {
 .alert {
   max-width: 50%;
 }
+
+.down .ims {
+  display: flex;
+  justify-content: center;
+}
