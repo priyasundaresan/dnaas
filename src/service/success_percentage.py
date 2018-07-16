@@ -70,6 +70,7 @@ def get_success_hist_png(date_start, date_end):
     while ctime < date_end:
         time_bins.append(ctime)
         ctime += datetime.timedelta(seconds=3600)
+    ctime += datetime.timedelta(seconds=3600)
     print(time_bins)
     if True:
         import matplotlib.pyplot as plt
