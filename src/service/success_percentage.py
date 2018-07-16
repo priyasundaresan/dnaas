@@ -76,6 +76,7 @@ def get_success_hist_png(date_start, date_end):
         import matplotlib.pyplot as plt
         from matplotlib.dates import date2num, DateFormatter
         from matplotlib.figure import Figure
+        from matplotlib.ticker import MaxNLocator
         from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 
         fig = Figure(figsize=(16, 10))
@@ -83,6 +84,7 @@ def get_success_hist_png(date_start, date_end):
         axes.hist([requests_succ, requests_term, requests_fail], color=['green', 'orange', 'red'], label=['success', 'user left page', 'fail'], stacked=True, bins=date2num(time_bins))
         axes.xaxis.set_major_formatter(DateFormatter('%Y-%m-%d::%H:%M'))
         axes.set_xlabel("Time")
+        axes.xaxis.set_major_locator(MaxNLocator(24))
         axes.set_ylabel("Number of requests")
         for tick in axes.get_xticklabels():
             tick.set_rotation(90)
