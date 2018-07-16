@@ -10,7 +10,7 @@ import json
 import shutil
 import logging
 
-from flask import Flask, request, jsonify, send_file, g
+from flask import Flask, request, jsonify, send_file, g, make_response
 from flask_cors import CORS, cross_origin
 
 import numpy as np
@@ -384,6 +384,8 @@ def get_initialize():
 
 # Debug endpoints (potential to expose code, should be turned off in production if serious about security)
 if consts.DEBUG:
+    from success_percentage import get_success_hist_png
+    import datetime
     @app.route('/<mesh_id>/error-trace', methods=['GET'])
     def get_trace(mesh_id):
         mesh_id = mesh_id.encode('ascii', 'replace')
@@ -392,6 +394,14 @@ if consts.DEBUG:
             return "Not found\n"
         return '<div style="font-family:monospace"> {} </div>'.format(
             errors[mesh_id].replace('\n', '<br>').replace(' ', '&nbsp;'))
+
+    @app.route('/stats/hist_png/hist_<start>_<end>.png', methods=['GET'])
+    def get_hist_png(start, end):
+        if end == '-':
+            end = datetime.datetime.today().strftime('%Y-%m-%d--%H-%M-%S')
+        response = make_response(get_success_hist_png(start, end))
+        response.mimetype = 'image/png'
+        return response
 # =================================================================================================
 # END
 # =================================================================================================
