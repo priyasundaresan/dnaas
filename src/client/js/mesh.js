@@ -54,6 +54,9 @@ MESH.addModelFile = function(file, trans=null, rot=null) {
                     .attr('disabled', false);
                 GRIPPER.update(); // Update gripper so that it doesn't collide
                 resolve();
+            };
+            objLoader.onerror = function(){
+                reject(Error("Mesh is invalid"));
             });
         };
         reader.onerror = function() {
