@@ -3,7 +3,8 @@ var MESH = {
     mesh_main: null,
     mesh_main_file: undefined,
     id: undefined,
-    autoscale: true
+    autoscale: true,
+    face_count_limit = 50000
 };
 MESH.material_main.side = THREE.DoubleSide;
 MESH.addModelUrl = function(url, trans=null, rot=null) {
@@ -84,4 +85,24 @@ MESH.clear = function() {
     $('#wireframe-switch, #autoscale-switch') // disable mesh and stable pose when no mesh is loaded
         .attr('disabled', true);
     GLOBAL.world.remove(MESH.mesh_main);
+}
+
+MESH.fvcount = function() {
+    facecount = 0;
+    vertexcount = 0;
+    MESH.mesh_main.traverse( function (child) {
+        if (child instanceof THREE.Mesh) {
+            geometry = new THREE.Geometry();
+            geometry.fromBufferGeometry(child.geometry);
+            facecount += geometry.faces.length;
+            vertexcount += geometry.vertices.length;
+        }
+    });
+    return [facecount, vertexcount];
+}
+
+MESH.validate = function() {
+    var fv = MESH.fvcount()
+    if (fv[0] > MESH.face_count_limit) return false;
+    return true;
 }
