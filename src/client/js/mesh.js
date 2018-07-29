@@ -4,7 +4,7 @@ var MESH = {
     mesh_main_file: undefined,
     id: undefined,
     autoscale: true,
-    face_count_limit = 50000
+    face_count_limit: 50000
 };
 MESH.material_main.side = THREE.DoubleSide;
 MESH.addModelUrl = function(url, trans=null, rot=null) {
@@ -55,10 +55,10 @@ MESH.addModelFile = function(file, trans=null, rot=null) {
                     .attr('disabled', false);
                 GRIPPER.update(); // Update gripper so that it doesn't collide
                 resolve();
-            };
+            });
             objLoader.onerror = function(){
                 reject(Error("Mesh is invalid"));
-            });
+            };
         };
         reader.onerror = function() {
             reject(Error("Mesh is invalid"));
