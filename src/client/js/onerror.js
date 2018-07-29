@@ -13,7 +13,6 @@ ERROR.showDialog = function(message){
     } else {
         em[0].lastElementChild.innerText = ""
     }
-    
     em.show();
 }
 
