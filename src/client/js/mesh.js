@@ -4,7 +4,7 @@ var MESH = {
     mesh_main_file: undefined,
     id: undefined,
     autoscale: true,
-    face_count_limit = 50000
+    face_count_limit: 50000
 };
 MESH.material_main.side = THREE.DoubleSide;
 MESH.addModelUrl = function(url, trans=null, rot=null) {
@@ -102,7 +102,6 @@ MESH.fvcount = function() {
 
 MESH.validate = function() {
     var fv = MESH.fvcount();
-    console.log(fv[0])
     var under_face_limit = fv[0] <= MESH.face_count_limit;
     return under_face_limit;
 }
