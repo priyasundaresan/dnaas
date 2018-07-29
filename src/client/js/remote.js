@@ -8,10 +8,8 @@ REMOTE.uploadMesh = function() {
     MODE.enter_pbar_mode();
     REMOTE.set_pbar(0, "Working...", 0)
     $('.progress-estimated-wait').hide();
-    var reader = new FileReader();
     var xhr = new XMLHttpRequest();
     this.xhr = xhr;
-    var self = this;
     this.xhr.upload.addEventListener("progress", function(e) {
         if (e.lengthComputable) {
             var percentage = Math.round((e.loaded * 100) / e.total);
