@@ -13,12 +13,11 @@ MESH.addModelUrl = function(url, trans=null, rot=null) {
         xhr.open('GET', url, true);
         xhr.responseType = 'blob';
         xhr.onload = function() {
-            if (xhr.status === 200) {
-                MESH.mesh_main_file = new File([xhr.response], MESH.id + ".obj");
-                resolve(MESH.addModelFile(MESH.mesh_main_file, trans, rot));
-            } else {
-                reject(Error(xhr));
+            if (xhr.status !== 200) {
+                reject(Error(xhr))
             }
+            MESH.mesh_main_file = new File([xhr.response], MESH.id + ".obj");
+            resolve(MESH.addModelFile(MESH.mesh_main_file, trans, rot));
         };
         xhr.onerror = function(...args) {
             reject(Error("Network Error: " + args.toString()));
@@ -32,6 +31,9 @@ MESH.addModelFile = function(file, trans=null, rot=null) {
         var reader = new FileReader();
         reader.onloadend = function(event){
             var objLoader = new THREE.OBJLoader();
+            objLoader.onerror = function() {
+                reject(Error("Mesh is invalid"));
+            };
             objLoader.load(event.target.result, function (object) {
                 object.traverse( function (child) {
                     if (child instanceof THREE.Mesh) {
@@ -55,9 +57,6 @@ MESH.addModelFile = function(file, trans=null, rot=null) {
                     .attr('disabled', false);
                 GRIPPER.update(); // Update gripper so that it doesn't collide
                 resolve();
-            };
-            objLoader.onerror = function(){
-                reject(Error("Mesh is invalid"));
             });
         };
         reader.onerror = function() {
@@ -102,7 +101,8 @@ MESH.fvcount = function() {
 }
 
 MESH.validate = function() {
-    var fv = MESH.fvcount()
-    if (fv[0] > MESH.face_count_limit) return false;
-    return true;
+    var fv = MESH.fvcount();
+    console.log(fv[0])
+    var under_face_limit = fv[0] <= MESH.face_count_limit;
+    return under_face_limit;
 }
