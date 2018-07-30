@@ -58,41 +58,38 @@
             </ul>
         </div>
         <div class='content'>
-                <div id="errorMessage" style="display: none;" class="alert alert-warning alert-dismissable alert-fixed">
-                        <a href="#" class="close" onclick="$('#errorMessage').hide();">&times;</a>
-                        <h4 class="alert-heading">Whoops!</h4>
-                        We are unable to complete your request at this time. Please try again later or
-                        see our <a href="faq.html" target="_blank">FAQ</a> guide to determine if your issue can be addressed.
-                        If the issue persists, consider
-                        <a href="https://goo.gl/forms/R8t24eGFNUmEYpjD3" target="_blank">reporting a bug</a> and we will take a closer look.
-                        This issue may be due to broken assumptions of our model, such as non-watertight meshes, or meshes with degenerate geometries.
-                        <div></div>
-                        <div></div>
-                    </div>
-                    <div id="infoMessage" style="display: none;" class="alert alert-warning alert-dismissable alert-fixed">
-                        <a href="#" class="close" onclick="$('#infoMessage').hide();">&times;</a>
-                        <h4 class="alert-heading">No Available Grasps</h4>
-                        We are unable to plan any collision free grasps for this object. This can happen when no grasp-points are readily accessible
-                        by the given gripper with specified width. This may also be due to degeneracies in the uploaded mesh.
-
-                        If no grasps are available for the widest gripper with the "Autoscale mesh" box checked, consider
-                        <a href="https://goo.gl/forms/R8t24eGFNUmEYpjD3" target="_blank">reporting a bug</a>
-                        and try again with a different mesh.
-                        See our <a href="faq.html" target="_blank">FAQ</a> guide for additional help resolving any issues.
-                        <div></div>
-                        <div></div>
-                    </div>
-                    <div id="sizeWarning" style="display: none;" class="alert alert-warning alert-dismissable alert-fixed">
-                        <a href="#" class="close" onclick="$('#sizeWarning').hide();">&times;</a>
-                        <h4 class="alert-heading">Mesh too Large</h4>
-                        This mesh contains more than 50,000 triangular faces.
-                        We are unable to process your request due to the computationally intensive
-                        stochastic grasp sampling algorithm used by DNaaS. Please try simplifying your mesh by reducing the number
-                        of triangular faces in the model, or see our <a href="faq.html" target="_blank">FAQ</a> guide
-                        for additional help finding novel objects to use with DNaaS.
-                        <div></div>
-                        <div></div>
-                    </div>
+            <div id="errorMessage" style="display: none;" class="alert alert-warning alert-dismissable alert-fixed">
+                <a href="#" class="close" onclick="$('#errorMessage').hide();">&times;</a>
+                <h4 class="alert-heading">Whoops!</h4>
+                We are unable to complete your request at this time. Please try again later or see our
+                <a href="faq.html" target="_blank">FAQ</a> guide to determine if your issue can be addressed. If the issue persists, consider
+                <a href="https://goo.gl/forms/R8t24eGFNUmEYpjD3" target="_blank">reporting a bug</a> and we will take a closer look. This issue may be due to broken assumptions of our model,
+                such as non-watertight meshes, or meshes with degenerate geometries.
+                <div></div>
+                <div></div>
+            </div>
+            <div id="infoMessage" style="display: none;" class="alert alert-warning alert-dismissable alert-fixed">
+                <a href="#" class="close" onclick="$('#infoMessage').hide();">&times;</a>
+                <h4 class="alert-heading">No Available Grasps</h4>
+                We are unable to plan any collision free grasps for this object. This can happen when no grasp-points are readily accessible
+                by the given gripper with specified width. This may also be due to degeneracies in the uploaded mesh. If
+                no grasps are available for the widest gripper with the "Autoscale mesh" box checked, consider
+                <a href="https://goo.gl/forms/R8t24eGFNUmEYpjD3" target="_blank">reporting a bug</a>
+                and try again with a different mesh. See our
+                <a href="faq.html" target="_blank">FAQ</a> guide for additional help resolving any issues.
+                <div></div>
+                <div></div>
+            </div>
+            <div id="sizeWarning" style="display: none;" class="alert alert-warning alert-dismissable alert-fixed">
+                <a href="#" class="close" onclick="$('#sizeWarning').hide();">&times;</a>
+                <h4 class="alert-heading">Mesh too Large</h4>
+                This mesh contains more than 50,000 triangular faces. We are unable to process your request due to the computationally intensive
+                stochastic grasp sampling algorithm used by DNaaS. Please try simplifying your mesh by reducing the number
+                of triangular faces in the model, or see our
+                <a href="faq.html" target="_blank">FAQ</a> guide for additional help finding novel objects to use with DNaaS.
+                <div></div>
+                <div></div>
+            </div>
             <div>
                 <h1>
                     <a href="https://berkeleyautomation.github.io/dex-net/" target="_blank">Dex-Net</a> as a Service: Compute and Display Robust Robot Grasps for Your Own Objects
@@ -111,25 +108,6 @@
                             </div>
                             <div class="progress-estimated-wait" style="display: hidden;">
                                 Estimated computation time: &lt;2 minutes. </div>
-                        </div>
-                    </div>
-                    <div class="panel-container">
-                        <div class="panel panel-primary">
-                            <h5 class="panel-title">To get your own .obj file to try:</h5>
-                            <div class="panel-body">
-                                <ul class="list-group">
-                                    <li class="list-group-item">1. Find an object you like on
-                                        <a href="https://www.thingiverse.com/newest" target="_blank">Thingiverse</a>. Click on the Object, Download All Files,
-                                        then unzip and go into
-                                        Files to find the .stl file for the object on your computer.
-                                    </li>
-                                    <li class="list-group-item">2. Use the
-                                        <a href="https://www.meshconvert.com/" target="_blank">Free Convert Tool</a> to convert the .stl file to an .obj file by selecting Output
-                                        Format (WaveFront Object (.obj)). Once converted, click the .obj file to download it to
-                                        your computer for use by Dex-Net as a Service (DNaaS).
-                                    </li>
-                                </ul>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -156,6 +134,12 @@
                         </select>
                     </div>
                     <div class="buttons">
+                        <div>
+                            <a type="button" class="btn btn-primary btn-xs" href="faq.html#thinigverse-how-to" role="button">
+                                Find your own Object
+                                <span class="glyphicon glyphicon-floppy-save"></span>
+                                </a>
+                        </div>
                         <div>
                             <button id="download-mesh" type="button" onclick="MESH.download_mesh()" class="btn btn-primary btn-xs" disabled="true">Download mesh
                                 <span class="glyphicon glyphicon-download-alt"></span>
