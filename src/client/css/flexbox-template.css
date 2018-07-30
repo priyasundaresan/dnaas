@@ -129,7 +129,7 @@ h2 {
 .subtitle-container {
   display: flex;
   flex-direction: row;
-  flex: 1;
+  flex: 0 0 50%;
   margin-bottom: 30px;
 }
 

@@ -96,10 +96,6 @@
                 </h1>
                 <div class="subtitle">
                     <div class="subtitle-container">
-                        <h2>
-                            Choose an example below, or
-                            <button class="btn btn-default" href="#" id="upload-link" title="upload .obj">upload .obj file</button>
-                        </h2>
                         <div class="progress-container" style="display: none">
                             <div id="progress-text">Uploading file...</div>
                             <div class="progress">
@@ -137,16 +133,21 @@
                         <div>
                             <a type="button" class="btn btn-primary btn-xs" href="faq.html#thingiverse-how-to" role="button" target="_blank">
                                 Find your own Object
-                                <span class="glyphicon glyphicon-floppy-save"></span>
-                                </a>
+                            </a>
                         </div>
                         <div>
-                            <button id="download-mesh" type="button" onclick="MESH.download_mesh()" class="btn btn-primary btn-xs" disabled="true">Download mesh
+                            <button class="btn btn-primary btn-xs" href="#" id="upload-link" title="upload .obj">Upload Object
+                                <span class="glyphicon glyphicon-cloud-upload"></span>
+                            </button>
+
+                        </div>
+                        <div>
+                            <button id="download-mesh" type="button" onclick="MESH.download_mesh()" class="btn btn-primary btn-xs" disabled="true">Download Object
                                 <span class="glyphicon glyphicon-download-alt"></span>
                             </button>
                         </div>
                         <div>
-                            <button id="download-grasps" type="button" onclick="AXES.download_grasps()" class="btn btn-primary btn-xs" disabled="true">Download grasps
+                            <button id="download-grasps" type="button" onclick="AXES.download_grasps()" class="btn btn-primary btn-xs" disabled="true">Download Computed Grasps
                                 <span class="glyphicon glyphicon-download-alt"></span>
                             </button>
                         </div>
