@@ -128,21 +128,9 @@ h2 {
 
 .subtitle-container {
   display: flex;
-  flex-direction: column;
-  flex: 0 0 50%;
+  flex-direction: row;
+  flex: 1;
   margin-bottom: 30px;
-}
-
-.panel-container {
-  flex: 0 0 30%;
-}
-
-.panel .panel-title {
-  margin: 10px;
-}
-
-.panel .panel-body {
-  padding: 0px 10px 0px 10px;
 }
 
 .faq .list-group-item {
