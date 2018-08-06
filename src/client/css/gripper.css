@@ -1,4 +1,4 @@
-.bottom {
+/* .bottom {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -13,7 +13,7 @@
 }
 .bottom .btn {
   width: 75%;
-}
+} */
 .gripper-container {
   flex: 1 1 auto;
   margin-right: 50px;
@@ -34,12 +34,13 @@
 }
 
 .gripper-param {
-  padding: 0px 10px 0px 10px;
+  /* padding: 0px 10px 0px 10px; */
   flex: 1 1 auto;
 }
 
 #gripper-width {
   width: 50px;
+  font-weight: 500;
 }
 .gripper-param-input {
   box-sizing: border-box;

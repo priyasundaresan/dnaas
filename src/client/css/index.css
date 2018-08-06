@@ -40,22 +40,25 @@
     background-color: rgba(0,0,0,0);
 }
  #metric-limits {
-    width: 50px;
+    width: 75px;
+		text-align:center;
  }
 
  .metric-slider {
     flex: 1 1 auto;
     text-align: center;
+		font-weight: 500;
 }
 
  .metric-slider #rendered-count {
      text-align: center;
+		 font-weight: 500;
  }
 
  #slider-range {
     background: linear-gradient(to right, rgba(255,0,0,1) 0%, rgba(255,255,0,1) 50%, rgba(0,255,0,1) 100%);
  }
- 
+
  #slider-range .ui-slider-handle:first-of-type {
   background: red;
  }
@@ -64,7 +67,7 @@
  }
 
  #slider-range .ui-slider-range {
-     background: bottom;
+  background: bottom;
  }
 
 .about {
@@ -91,50 +94,104 @@ a {
     cursor: pointer;
 }
 
+.graphics-container {
+    display: flex;
+		flex-direction: row; /* changed here */
+		justify-content: space-around;
+		margin-top: 10px;
+}
+
 #canvas-container {
-    flex: 1 1 auto;
+    flex: 1 0.3 auto;
+		overflow: auto;
+		position: relative;
+		background-color: white;
+		border-style: solid;
+		border-right: hidden;
+		border-width: 1px;
+		border-color: #6e849a;
 }
 
 #canvas {
     cursor: pointer;
+		align-self: center;
+}
+
+.boxes {
+		flex: 0 1 auto;
+		padding: 0px 20px 20px 20px;
+		overflow: auto;
+		background-color: #d6d6d6;
+		border-style: solid;
+		border-width: 1px;
+		border-color: #6e849a;
+}
+
+label {
+	font-weight: 500;
+}
+
+.boxes .btn {
+  width: 100%;
+}
+
+.boxes .stable-pose-nav-button {
+	width: 10%;
+}
+
+.download {
+	text-align: center;
+}
+
+.download button {
+	margin: 2px;
 }
 
 .subtitle {
     display: flex;
-    justify-content: space-around;
-    margin-top: 20px;
+    justify-content: center;
+    margin-top: 7px;
+		font-weight: bold;
 }
 
-.subtitle h2 {
-    flex: 1 1 auto;
-    margin-top: 0px;
+#grasp-subtitle {
+	margin-top: 5px;
+}
+
+.subtitle h5 {
+		font-weight: bold;
 }
 
 #stable-poses {
     flex: 0 1 100px;
-    margin-left: 5px;
+    margin-left: 0px;
 }
 
 #stable-pose-selector {
     display: flex;
+		justify-content: center;
 }
 
-.boxes {
-    display: flex;
-    align-items: flex-end;
-    flex: 2 1 auto;
-    justify-content: flex-end;
+.option-divider {
+	padding-bottom: 10px;
+	border-bottom: solid;
+	text-align: center;
+	border-color: #6e849a;
+	border-width: 1px;
 }
 
-.boxes label {
-    margin-left: 10px;
-}
 
 .buttons {
+		margin-right: 400px;
     align-items: center;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-evenly;
     flex: 1 1 auto;
+}
+
+.btn-group-xs>.btn, .btn-xs {
+	margin: 2px;
+	/* margin-left: 5px; */
 }
 
 .mesh-select-container {
@@ -142,8 +199,7 @@ a {
 }
 
 .stable-pose-id {
-    flex: 1 1 auto;
+    flex: 0 1 auto;
     background: #fff;
-    text-align: center;
-    width: 50px;
+    width: 40px;
 }

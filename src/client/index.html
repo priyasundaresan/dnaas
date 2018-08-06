@@ -131,80 +131,101 @@
                     </div>
                     <div class="buttons">
                         <div>
-                            <a type="button" class="btn btn-primary btn-xs" href="faq.html#thingiverse-how-to" role="button" target="_blank">
-                                Find your own Object
-                            </a>
-                        </div>
-                        <div>
-                            <button class="btn btn-primary btn-xs" href="#" id="upload-link" title="upload .obj">Upload Object
+                            <button class="btn btn-primary btn-xs" href="#" id="upload-link" title="upload .obj">Upload Object (.obj)
                                 <span class="glyphicon glyphicon-cloud-upload"></span>
                             </button>
 
                         </div>
-                        <div>
-                            <button id="download-mesh" type="button" onclick="MESH.download_mesh()" class="btn btn-primary btn-xs" disabled="true">Download Object
-                                <span class="glyphicon glyphicon-download-alt"></span>
-                            </button>
+                        <div class="btn-bottom">
+                            <button id="upload-confirm" type="button" class="btn btn-success btn-md" disabled="true">Compute grasps!</button>
                         </div>
                         <div>
-                            <button id="download-grasps" type="button" onclick="AXES.download_grasps()" class="btn btn-primary btn-xs" disabled="true">Download Computed Grasps
-                                <span class="glyphicon glyphicon-download-alt"></span>
-                            </button>
+                            <a type="button" class="btn btn-info btn-xs" href="faq.html#thingiverse-how-to" role="button" target="_blank">
+                                Find your own Object
+                            </a>
                         </div>
-                    </div>
-                    <div class="boxes">
-                        <div>
-                            <label>
-                                <input id="gripper-switch" type="checkbox" value="">Hide gripper</label>
-                        </div>
-                        <div>
-                            <label>
-                                <input id="wireframe-switch" type="checkbox" value="" disabled="true">Render mesh as wireframe</label>
-                        </div>
-                        <div>
-                            <label>
-                                <input id="autoscale-switch" type="checkbox" value="" disabled="true" checked>Autoscale mesh</label>
-                        </div>
-                        <div class="stable-pose-button-container">
-                            <label>
-                                <input type="checkbox" name="stable-pose-button" id="stable-pose-button" disabled="true">Show stable pose grasps</label>
-                        </div>
-                        <div id="stable-poses">
-                            <div class="stable-pose-selector" id="stable-pose-selector">
-                                <button class="btn btn-default btn-xs stable-pose-nav-button" id="stable-pose-nav-button-left" onclick="STABLE.decrement_pose()"
-                                    disabled="true">
-                                    <span class="glyphicon glyphicon-chevron-left"></span>
-                                </button>
-                                <input type="text" id="stable-pose-id" class="stable-pose-id" readonly>
-                                <button class="btn btn-default btn-xs stable-pose-nav-button" id="stable-pose-nav-button-right" onclick="STABLE.increment_pose()"
-                                    disabled="true">
-                                    <span class="glyphicon glyphicon-chevron-right"></span>
-                                </button>
-                            </div>
-                        </div>
+
                     </div>
                 </div>
             </div>
-            <div id="canvas-container">
-                <canvas id="canvas">
-                </canvas>
-            </div>
-            <div class="bottom">
-                <div class="gripper gripper-param">
-                    <label for="gripper-width">Gripper width:</label>
-                    <input id="gripper-width" class="slider-display-field">
-                    <div id="gripper-width-slider"></div>
+
+            <div class="graphics-container">
+                <div id="canvas-container">
+                  <canvas id="canvas" height="575">
+                  </canvas>
                 </div>
-                <div class="btn-bottom">
-                    <button id="upload-confirm" type="button" class="btn btn-success btn-md" disabled="true">Compute grasps!</button>
-                </div>
-                <div class="metric-slider" id="metric-slider">
-                    <label for="metric-limits">Filter by grasp robustness:</label>
-                    <input type="text" id="metric-limits" class="slider-display-field" readonly>
-                    <div id="slider-range"></div>
-                    <input type="text" value="(0 grasps rendered)" id="rendered-count" class=slider-display-field readonly>
-                </div>
-            </div>
+                <div class="boxes" >
+                    <div class="option-divider">
+                    <div class="subtitle">
+                      <h5><strong>Grasp Settings<strong></h5>
+                    </div>
+                    <div class="metric-slider" id="metric-slider">
+                      <label for="metric-limits">Filter by grasp robustness:</label>
+                      <input type="text" id="metric-limits" class="slider-display-field" readonly>
+                      <div id="slider-range"></div>
+                      <input type="text" value="(0 grasps rendered)" id="rendered-count" class=slider-display-field readonly>
+                    </div>
+                  </div>
+                    <div class="option-divider">
+                    <div class="subtitle">
+                      <h5><strong>Gripper Settings<strong></h5>
+                    </div>
+                    <div class="gripper gripper-param">
+                        <label for="gripper-width">Gripper width:</label>
+                        <input id="gripper-width" class="slider-display-field">
+                        <div id="gripper-width-slider"></div>
+                    </div>
+                    <div>
+                        <label>
+                            <input id="gripper-switch" type="checkbox" value="">Hide gripper</label>
+                    </div>
+                  </div>
+                  <div class="option-divider">
+                    <div class="subtitle">
+                      <h5><strong>Object Settings<strong></h5>
+                    </div>
+                    <div>
+                        <label>
+                            <input id="wireframe-switch" type="checkbox" value="" disabled="true">Render mesh as wireframe</label>
+                    </div>
+                    <div>
+                        <label>
+                            <input id="autoscale-switch" type="checkbox" value="" disabled="true" checked>Autoscale mesh</label>
+                    </div>
+                    <div class="stable-pose-button-container">
+                        <label>
+                            <input type="checkbox" name="stable-pose-button" id="stable-pose-button" disabled="true">Show stable pose grasps</label>
+                    </div>
+                    <div id="stable-poses">
+                        <div class="stable-pose-selector" id="stable-pose-selector">
+                            <button class="btn btn-default btn-xs stable-pose-nav-button" id="stable-pose-nav-button-left" onclick="STABLE.decrement_pose()"
+                                disabled="true">
+                                <span class="glyphicon glyphicon-chevron-left"></span>
+                            </button>
+                            <input type="text" id="stable-pose-id" class="stable-pose-id" readonly>
+                            <button class="btn btn-default btn-xs stable-pose-nav-button" id="stable-pose-nav-button-right" onclick="STABLE.increment_pose()"
+                                disabled="true">
+                                <span class="glyphicon glyphicon-chevron-right"></span>
+                            </button>
+                        </div>
+                    </div>
+                  </div>
+                    <div class="subtitle">
+                      <h5><strong>Download<strong></h5>
+                    </div>
+                    <div class="download">
+                      <div>
+                          <button id="download-mesh" type="button" onclick="MESH.download_mesh()" class="btn btn-primary btn-xs" disabled="true">Object (.obj)
+                              <span class="glyphicon glyphicon-download-alt"></span>
+                          </button>
+                      </div>
+                      <div>
+                          <button id="download-grasps" type="button" onclick="AXES.download_grasps()" class="btn btn-primary btn-xs" disabled="true">Computed Grasps (.json)
+                              <span class="glyphicon glyphicon-download-alt"></span>
+                          </button>
+                      </div>
+                    </div>
+          </div>
             <input id="mesh-file-field" type="file" style="display:none" accept='.obj' />
         </div>
         <script src="js/onerror.js"></script>

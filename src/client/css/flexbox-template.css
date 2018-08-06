@@ -110,7 +110,7 @@ body {
 }
 
 .nav li a.active {
-  box-shadow: inset 5px 0 0 #5b5, inset 6px 0 0 #222;
+  box-shadow: inset 5px 0 0 #d3ab2c, inset 6px 0 0 #222;
   background: #444;
 }
 
@@ -178,3 +178,6 @@ h2 {
   display: flex;
   justify-content: center;
 }
+
+.list-group-item {
+    margin: 10px 0px; /* CHECK THIS */
