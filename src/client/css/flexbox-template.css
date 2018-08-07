@@ -180,4 +180,14 @@ h2 {
 }
 
 .list-group-item {
-    margin: 10px 0px; /* CHECK THIS */
+    margin: 10px 0px;
+}
+
+#authors-header {
+border-left: solid;
+background-color: #dadada;
+padding-top: 10px;
+padding-bottom: 10px;
+border-width: 4px;
+padding-left: 10px;
+}

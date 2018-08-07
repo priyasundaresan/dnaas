@@ -110,8 +110,8 @@
             </div>
             <div class="controls">
                 <div id="sidebar">
-                    <div class="mesh-select-container">
-                        <select id="mesh-select" class="select-style">
+                    <div class="form-group">
+                        <select id="exampleFormControlSelect1" class="form-control">
                             <option value="default" disabled selected>Choose an example mesh</option>
                             <option value="spray">Spray Bottle</option>
                             <option value="pawn">Chess Pawn</option>
@@ -131,18 +131,20 @@
                     </div>
                     <div class="buttons">
                         <div>
-                            <button class="btn btn-primary btn-xs" href="#" id="upload-link" title="upload .obj">Upload Object (.obj)
+                            <button class="btn btn-primary btn-md" href="#" id="upload-link" title="upload .obj">Upload Object (.obj)
                                 <span class="glyphicon glyphicon-cloud-upload"></span>
                             </button>
 
                         </div>
-                        <div class="btn-bottom">
-                            <button id="upload-confirm" type="button" class="btn btn-success btn-md" disabled="true">Compute grasps!</button>
-                        </div>
+
                         <div>
-                            <a type="button" class="btn btn-info btn-xs" href="faq.html#thingiverse-how-to" role="button" target="_blank">
+                            <a type="button" class="btn btn-info btn-md" href="faq.html#thingiverse-how-to" role="button" target="_blank">
                                 Find your own Object
                             </a>
+                        </div>
+
+                        <div class="btn-bottom">
+                            <button id="upload-confirm" type="button" class="btn btn-success btn-lg" style="width: 150%;padding-top: 4px;padding-bottom: 4px;" disabled="true">Compute grasps!</button>
                         </div>
 
                     </div>
@@ -175,7 +177,7 @@
                         <input id="gripper-width" class="slider-display-field">
                         <div id="gripper-width-slider"></div>
                     </div>
-                    <div>
+                    <div style="text-align: center;">
                         <label>
                             <input id="gripper-switch" type="checkbox" value="">Hide gripper</label>
                     </div>
